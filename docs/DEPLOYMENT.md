@@ -1,5 +1,7 @@
 # Windows + WSL2 部署与验收
 
+首次使用新电脑请从 [新电脑详细部署指南](NEW_COMPUTER_DEPLOYMENT.md) 开始；本文保留架构与验收概要。
+
 本文供后续在另一台目标电脑部署时使用，不是当前开发机的执行清单。当前仅进行开发、构建及自动化测试；目标机安装和真实券商联调留待部署阶段。
 
 本版部署为 Windows 宿主服务 + 专用 `FinfusionNode` Debian 12 WSL2，内含 PostgreSQL、Casdoor、Finfusion、cloudflared 和 age Vault。源代码、构建输入从本项目取得；安装副本和数据使用系统服务目录。
