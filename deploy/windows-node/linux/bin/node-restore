@@ -1,0 +1,105 @@
+#!/bin/bash
+set -euo pipefail
+environment="$(sed -n 's/^FINFUSION_ENVIRONMENT=//p' /etc/finfusion/server.env)"
+case "$environment" in SANDBOX) database=finfusion_sandbox;; LIVE) database=finfusion_live;; *) echo "invalid environment" >&2; exit 65;; esac
+umask 077
+vault_path="$(readlink -f "${1:?encrypted backup Vault required}")"
+identity_path="$(readlink -f "${2:?external age identity required}")"
+if [[ "$vault_path" != *.age || ! -f "$vault_path" || ! -f "$identity_path" || -L "$vault_path" || -L "$identity_path" ]]; then echo "restore requires regular, non-symlink .age Vault and identity files" >&2; exit 66; fi
+
+/opt/finfusion/bin/node_state.py deactivate --reason restore-validation >/dev/null
+tmp="$(mktemp -d /run/finfusion-restore.XXXXXX)"
+chmod 700 "$tmp"
+rollback_persistent=""
+trap 'rm -rf -- "$tmp"' EXIT
+
+# Validate authenticated decryption and every archive invariant before stopping services.
+age -d -i "$identity_path" -o "$tmp/incoming.tar" "$vault_path"
+chmod 600 "$tmp/incoming.tar"
+/opt/finfusion/bin/backup_vault.py validate-extract "$tmp/incoming.tar" "$tmp/incoming" > "$tmp/incoming-manifest.json"
+chmod 600 "$tmp/incoming-manifest.json"
+grep -qx "FINFUSION_ENVIRONMENT=$environment" "$tmp/incoming/config/server.env" || { echo "cross-environment restore refused" >&2; exit 65; }
+pg_restore --list "$tmp/incoming/databases/finfusion.dump" >/dev/null
+pg_restore --list "$tmp/incoming/databases/casdoor.dump" >/dev/null
+
+# Keep a recoverable, externally encrypted snapshot of the pre-restore node.
+/opt/finfusion/bin/node-backup "$tmp/pre-restore.age"
+systemctl stop finfusion-tunnel-health.timer cloudflared finfusion casdoor finfusion-vault
+/opt/finfusion/bin/node_state.py deactivate --reason restore-applying >/dev/null
+
+rollback="$tmp/rollback"
+install -d -m 700 "$rollback/databases" "$rollback/files"
+sudo -u postgres pg_dump --format=custom "$database" > "$rollback/databases/finfusion.dump"
+sudo -u postgres pg_dump --format=custom casdoor > "$rollback/databases/casdoor.dump"
+chmod 600 "$rollback/databases/"*.dump
+cp -a /var/lib/finfusion/vault "$rollback/files/vault"
+if [[ -d /var/lib/finfusion/webull_tokens ]]; then cp -a /var/lib/finfusion/webull_tokens "$rollback/files/webull_tokens"; fi
+install -d -m 700 "$rollback/files/config"
+for item in server.env domains.json backup-recipient.txt update-minisign.pub; do
+  if [[ -f "/etc/finfusion/$item" ]]; then cp -a "/etc/finfusion/$item" "$rollback/files/config/"; fi
+done
+
+restore_databases() {
+  local source="$1"
+  sudo -u postgres pg_restore --clean --if-exists --single-transaction --exit-on-error --no-owner --role=finfusion --dbname="$database" < "$source/finfusion.dump" || return
+  sudo -u postgres pg_restore --clean --if-exists --single-transaction --exit-on-error --no-owner --role=casdoor --dbname=casdoor < "$source/casdoor.dump" || return
+}
+
+restore_files() {
+  local source="$1"
+  rm -rf -- /var/lib/finfusion/vault /var/lib/finfusion/webull_tokens
+  cp -a "$source/vault" /var/lib/finfusion/vault || return
+  if [[ -d "$source/webull_tokens" ]]; then cp -a "$source/webull_tokens" /var/lib/finfusion/webull_tokens || return; else install -d -m 750 -o finfusion -g finfusion /var/lib/finfusion/webull_tokens || return; fi
+  for item in server.env domains.json backup-recipient.txt update-minisign.pub; do rm -f -- "/etc/finfusion/$item"; done
+  for item in "$source/config/"*; do [[ -e "$item" ]] || continue; cp -a "$item" /etc/finfusion/ || return; done
+}
+
+verify_reconciliation() {
+  python3 - <<'PY'
+import json, time, urllib.error, urllib.request
+deadline = time.monotonic() + 120
+while time.monotonic() < deadline:
+    try:
+        try: response = urllib.request.urlopen("http://127.0.0.1:8080/readyz", timeout=3)
+        except urllib.error.HTTPError as error: response = error
+        state = json.loads(response.read())
+        if state.get("database") is True and state.get("reconciliation") is True and state.get("nodeActive") is False and state.get("globalTradeEnabled") is False:
+            raise SystemExit(0)
+    except (OSError, ValueError):
+        pass
+    time.sleep(2)
+raise SystemExit("post-restore reconciliation did not complete safely")
+PY
+}
+
+apply_restore() {
+  restore_databases "$tmp/incoming/databases" || return
+  restore_files "$tmp/incoming" || return
+  install -m 0644 -o root -g root "$tmp/incoming/metadata/VERSION" /opt/finfusion/VERSION || return
+  systemctl reset-failed finfusion-vault || true
+  systemctl start finfusion-vault casdoor finfusion || return
+  verify_reconciliation || return
+}
+
+if ! apply_restore; then
+  systemctl stop finfusion cloudflared casdoor finfusion-vault || true
+  rollback_ok=true
+  restore_databases "$rollback/databases" || rollback_ok=false
+  restore_files "$rollback/files" || rollback_ok=false
+  install -d -m 700 /var/lib/finfusion/recovery
+  rollback_persistent="/var/lib/finfusion/recovery/failed-restore-$(date -u +%Y%m%dT%H%M%SZ).age"
+  mv -- "$tmp/pre-restore.age" "$rollback_persistent"
+  chmod 600 "$rollback_persistent"
+  /opt/finfusion/bin/node_state.py deactivate --reason restore-rolled-back >/dev/null || true
+  if [[ "$rollback_ok" == true ]]; then
+    echo "restore failed; previous state rolled back; encrypted recovery Vault retained at $rollback_persistent" >&2
+  else
+    echo "restore and automatic rollback failed; services remain stopped; encrypted recovery Vault retained at $rollback_persistent" >&2
+  fi
+  exit 1
+fi
+
+rm -f -- "$tmp/pre-restore.age"
+/opt/finfusion/bin/node_state.py deactivate --reason restore-reconciled >/dev/null
+install -m 600 -o root -g root "$tmp/incoming-manifest.json" /var/lib/finfusion/last-restore-manifest.json
+echo "Restore and startup reconciliation completed. Node and global trading remain OFF; Tunnel remains stopped pending manual acceptance."

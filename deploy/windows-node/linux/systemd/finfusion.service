@@ -1,0 +1,22 @@
+[Unit]
+Description=Finfusion institutional API
+After=network-online.target postgresql.service casdoor.service finfusion-vault.service finfusion-node-default-off.service
+Requires=postgresql.service finfusion-vault.service finfusion-node-default-off.service
+
+[Service]
+Type=simple
+User=finfusion
+Group=finfusion
+EnvironmentFile=/etc/finfusion/server.env
+WorkingDirectory=/opt/finfusion/current
+ExecStart=/opt/finfusion/venv/bin/python -m finfusion.main
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run/finfusion /var/lib/finfusion/webull_tokens
+
+[Install]
+WantedBy=multi-user.target

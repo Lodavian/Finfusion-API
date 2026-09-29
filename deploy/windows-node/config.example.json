@@ -1,0 +1,26 @@
+{
+  "apiDomain": "api.example.com",
+  "authDomain": "auth.example.com",
+  "adminDomain": "admin.example.com",
+  "casdoorClientId": "[REDACTED]",
+  "casdoorClientSecret": "[REDACTED]",
+  "casdoorOrganization": "finfusion",
+  "casdoorApplication": "finfusion-admin",
+  "databaseDsn": "postgresql://finfusion:[REDACTED]@127.0.0.1:5432/finfusion_sandbox",
+  "casdoorDataSourceName": "user=casdoor password=[REDACTED] host=127.0.0.1 port=5432 dbname=casdoor sslmode=disable",
+  "webullAppKey": "[REDACTED]",
+  "webullAppSecret": "[REDACTED]",
+  "tunnelToken": "[REDACTED]",
+  "backupRecipient": "age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "quoteStaleSeconds": 3,
+  "riskLimits": {
+    "maxOrderQty": 1,
+    "maxOrderValue": "1000",
+    "maxMarketQty": 1,
+    "maxMarketEstimatedValue": "1000",
+    "maxDailyGrossNotional": "5000",
+    "maxOpenOrders": 5
+  },
+  "environment": "SANDBOX",
+  "liveAllowed": false
+}

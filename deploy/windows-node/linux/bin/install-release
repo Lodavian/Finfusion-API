@@ -1,0 +1,38 @@
+#!/bin/bash
+set -euo pipefail
+bundle="$(readlink -f "${1:?bundle required}")"
+tmp="$(mktemp -d /opt/finfusion/.update.XXXXXX)"
+trap 'rm -rf -- "$tmp"' EXIT
+python3 - "$bundle" "$tmp" <<'PY'
+import pathlib, sys, tarfile
+source, target = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]).resolve()
+with tarfile.open(source, "r:gz") as archive:
+    for item in archive.getmembers():
+        destination = (target / item.name).resolve()
+        if target not in destination.parents and destination != target:
+            raise SystemExit("unsafe update archive path")
+        if item.issym() or item.islnk():
+            raise SystemExit("links are not allowed in update archive")
+    archive.extractall(target)
+PY
+version="$(cat "$tmp/VERSION")"
+if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then echo "invalid release version" >&2; exit 65; fi
+for required in app/finfusion_common app/finfusion app/server_admin wheelhouse python-requirements.lock; do test -e "$tmp/$required"; done
+new_release="/opt/finfusion/releases/$version"
+new_venv="/opt/finfusion/venvs/$version"
+test ! -e "$new_release"
+cp -a "$tmp/app" "$new_release"
+python3 -m venv "$new_venv"
+"$new_venv/bin/pip" install --no-index --require-hashes --find-links "$tmp/wheelhouse" -r "$tmp/python-requirements.lock"
+old_release="$(readlink -f /opt/finfusion/current)"
+old_venv="$(readlink -f /opt/finfusion/venv)"
+ln -sfn "$new_release" /opt/finfusion/current
+ln -sfn "$new_venv" /opt/finfusion/venv
+if ! systemctl restart finfusion; then
+  ln -sfn "$old_release" /opt/finfusion/current
+  ln -sfn "$old_venv" /opt/finfusion/venv
+  systemctl restart finfusion || true
+  exit 1
+fi
+install -m 0644 "$tmp/VERSION" /opt/finfusion/VERSION
+echo "Updated to $version; node activation and global trading remain OFF."

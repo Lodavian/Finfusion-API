@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "platform": "windows-x64+wsl2-debian12-amd64",
+  "components": {
+    "debian": { "version": "12", "artifact": "debian-12-wsl-rootfs.tar.gz" },
+    "dotnetRuntime": { "version": "8.0.13", "architecture": "win-x64", "deployment": "self-contained" },
+    "debianPackages": { "versions": "exact values supplied in the hashed debian-base-manifest.json and verified with dpkg-query before install" },
+    "casdoor": { "version": "3.143.0", "artifact": "casdoor_Linux_x86_64.tar.gz", "sha256": "76ab880fdc9a7630dc081ac49aaddb07db0ff4da73a8e663e2a72df76db65f24" },
+    "cloudflared": { "version": "2026.9.1", "artifact": "cloudflared-linux-amd64", "sha256": "03f1f25d1cc93b9ad6c60569d44060bc4f17ed97075760ed8cfca4b12dcd68cc" },
+    "webullSdk": { "version": "2.0.18" }
+  },
+  "integrity": "Every installer input and Python wheel is SHA-256 pinned in the generated bundle-manifest.json. The build refuses missing hashes or inputs."
+}

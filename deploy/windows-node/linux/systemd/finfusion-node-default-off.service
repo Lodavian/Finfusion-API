@@ -1,0 +1,12 @@
+[Unit]
+Description=Reset Finfusion node trading activation on every boot
+Before=finfusion.service cloudflared.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/finfusion/bin/node_state.py deactivate --reason boot-default-off
+RemainAfterExit=yes
+ReadWritePaths=/run/finfusion
+
+[Install]
+WantedBy=multi-user.target

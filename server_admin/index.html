@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Finfusion 管理台</title>
+  <link rel="stylesheet" href="/admin/styles.css">
+</head>
+<body>
+  <header><h1>Finfusion 管理台</h1><button id="login">管理员登录</button></header>
+  <main id="app" hidden>
+    <section>
+      <h2>交易总开关</h2>
+      <p id="globalState">正在读取…</p>
+      <button data-global="true">开启交易</button>
+      <button class="danger" data-global="false">中断新单和改单</button>
+    </section>
+    <section>
+      <h2>创建用户</h2>
+      <form id="userForm">
+        <input name="username" placeholder="用户名" required minlength="3">
+        <input name="displayName" placeholder="显示名称" required>
+        <input name="password" type="password" placeholder="固定密码（至少12位）" required minlength="12">
+        <button>创建</button>
+      </form>
+    </section>
+    <section>
+      <h2>登记与绑定账户</h2>
+      <form id="accountForm">
+        <input name="brokerAccountId" placeholder="Webull账户ID（仅服务器保存）" required>
+        <input name="alias" placeholder="账户别名" required>
+        <button>登记</button>
+      </form>
+      <form id="bindingForm">
+        <input name="userId" placeholder="Casdoor用户ID" required>
+        <input name="accountRef" placeholder="账户 accountRef" required>
+        <button>绑定</button>
+      </form>
+      <form id="unbindForm">
+        <input name="accountRef" placeholder="要解绑的 accountRef" required>
+        <button class="danger">立即解绑并撤权</button>
+      </form>
+    </section>
+    <section>
+      <h2>用户与客户端撤权</h2>
+      <form id="userStatusForm">
+        <input name="userId" placeholder="Casdoor用户ID" required>
+        <select name="enabled"><option value="true">启用用户</option><option value="false">禁用用户</option></select>
+        <button>应用用户状态</button>
+      </form>
+      <form id="passwordForm">
+        <input name="userId" placeholder="Casdoor用户ID" required>
+        <input name="password" type="password" placeholder="新固定密码（至少12位）" required minlength="12">
+        <button>管理员重置密码</button>
+      </form>
+      <form id="clientForm">
+        <input name="clientId" placeholder="客户端ID" required>
+        <select name="enabled"><option value="false">撤销客户端</option><option value="true">重新启用客户端</option></select>
+        <button>应用客户端状态</button>
+      </form>
+    </section>
+    <section>
+      <h2>程序客户端</h2>
+      <p>用户本地生成 P-256 密钥，只提交公钥。登记后默认禁用；轮换公钥后必须重新批准。</p>
+      <form id="registerClientForm">
+        <input name="userId" placeholder="所属用户ID" required>
+        <input name="label" placeholder="客户端名称" required maxlength="80">
+        <textarea name="publicKeyPem" placeholder="P-256 PEM 公钥" required rows="5"></textarea>
+        <button>登记客户端</button>
+      </form>
+      <form id="clientPermissionsForm">
+        <input name="clientId" placeholder="客户端ID" required>
+        <label><input type="checkbox" name="enabled">批准启用</label>
+        <label><input type="checkbox" name="canRead" checked>查询与事件订阅</label>
+        <label><input type="checkbox" name="canTrade">下单与改单</label>
+        <label><input type="checkbox" name="canCancel">撤单</label>
+        <button>保存权限</button>
+      </form>
+      <form id="rotateClientForm">
+        <input name="clientId" placeholder="客户端ID" required>
+        <textarea name="publicKeyPem" placeholder="新的 P-256 PEM 公钥" required rows="5"></textarea>
+        <button>轮换公钥并停用</button>
+      </form>
+    </section>
+    <section>
+      <h2>分级交易开关</h2>
+      <form id="controlForm">
+        <select name="scope"><option value="user">用户</option><option value="account">账户</option></select>
+        <input name="key" placeholder="用户ID或 accountRef" required>
+        <select name="enabled"><option value="true">允许新单与改单</option><option value="false">中断新单与改单</option></select>
+        <input name="reason" placeholder="原因" required>
+        <button>应用交易开关</button>
+      </form>
+    </section>
+    <section><h2>当前状态</h2><div id="state"></div></section>
+  </main>
+  <output id="message" aria-live="polite"></output>
+  <script src="/admin/app.js" defer></script>
+</body>
+</html>

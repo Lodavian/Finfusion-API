@@ -1,0 +1,39 @@
+#!/bin/bash
+set -euo pipefail
+environment="$(sed -n 's/^FINFUSION_ENVIRONMENT=//p' /etc/finfusion/server.env)"
+case "$environment" in SANDBOX) database=finfusion_sandbox;; LIVE) database=finfusion_live;; *) echo "invalid environment" >&2; exit 65;; esac
+umask 077
+recipient_file="/etc/finfusion/backup-recipient.txt"
+if [[ "${1:-}" == "--recipient" ]]; then
+  recipient="${2:?age recipient required}"
+  shift 2
+else
+  recipient="$(tr -d '\r\n' < "$recipient_file")"
+fi
+target="$(readlink -m "${1:?encrypted .age output required}")"
+if [[ "$recipient" != age1* || ${#recipient} -lt 60 || ${#recipient} -gt 100 ]]; then echo "invalid age backup recipient" >&2; exit 65; fi
+if [[ "$target" != *.age ]]; then echo "backup output must end in .age" >&2; exit 65; fi
+if [[ -e "$target" || -L "$target" ]]; then echo "refusing to overwrite existing backup or symlink" >&2; exit 73; fi
+install -d -m 700 "$(dirname "$target")"
+tmp="$(mktemp -d /run/finfusion-backup.XXXXXX)"
+chmod 700 "$tmp"
+trap 'rm -rf -- "$tmp"; rm -f -- "$target.partial.$$"' EXIT
+stage="$tmp/payload"
+install -d -m 700 "$stage/databases" "$stage/vault" "$stage/config" "$stage/metadata"
+install -d -m 700 -o finfusion -g finfusion "$stage/webull_tokens"
+sudo -u postgres pg_dump --format=custom "$database" > "$stage/databases/finfusion.dump"
+sudo -u postgres pg_dump --format=custom casdoor > "$stage/databases/casdoor.dump"
+chmod 600 "$stage/databases/"*.dump
+install -m 600 -o root -g root /var/lib/finfusion/vault/identity.txt /var/lib/finfusion/vault/secrets.age "$stage/vault/"
+install -m 644 -o root -g root /var/lib/finfusion/vault/recipient.txt "$stage/vault/recipient.txt"
+install -m 640 -o root -g finfusion /etc/finfusion/server.env /etc/finfusion/domains.json "$stage/config/"
+install -m 644 -o root -g root "$recipient_file" "$stage/config/backup-recipient.txt"
+if [[ -f /etc/finfusion/update-minisign.pub ]]; then install -m 644 -o root -g root /etc/finfusion/update-minisign.pub "$stage/config/"; fi
+install -m 644 -o root -g root /opt/finfusion/VERSION "$stage/metadata/VERSION"
+if [[ -f /opt/finfusion/debian-base-manifest.json ]]; then install -m 644 -o root -g root /opt/finfusion/debian-base-manifest.json "$stage/metadata/"; fi
+if [[ -d /var/lib/finfusion/webull_tokens ]]; then cp -a /var/lib/finfusion/webull_tokens/. "$stage/webull_tokens/"; fi
+/opt/finfusion/bin/backup_vault.py create "$stage" "$tmp/vault.tar"
+age -r "$recipient" -o "$target.partial.$$" "$tmp/vault.tar"
+chmod 600 "$target.partial.$$"
+mv -- "$target.partial.$$" "$target"
+echo "Encrypted backup created: $target"

@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+action="${1:-}"
+case "$action" in
+  export)
+    recipient="${2:?new-node age recipient required}"
+    output="$(readlink -m "${3:?output required}")"
+    /opt/finfusion/bin/node_state.py deactivate --reason migration-export >/dev/null
+    /opt/finfusion/bin/node-backup --recipient "$recipient" "$output"
+    echo "Exported. Verify restore and broker reconciliation on the new node before revoking this node."
+    ;;
+  revoke-old)
+    confirmation="${2:-}"
+    if [[ "$confirmation" != "REVOKE-OLD-NODE" ]]; then echo "exact confirmation REVOKE-OLD-NODE required" >&2; exit 64; fi
+    /opt/finfusion/bin/node_state.py deactivate --reason old-node-revoked >/dev/null
+    systemctl disable --now finfusion cloudflared casdoor
+    rm -rf -- /var/lib/finfusion/webull_tokens
+    rm -f -- /var/lib/finfusion/vault/identity.txt /var/lib/finfusion/vault/secrets.age
+    echo "Old node credentials and broker tokens revoked locally. Revoke the old Tunnel token and Webull app credential in their provider consoles now."
+    ;;
+  *) echo "usage: node-migrate export NEW_AGE_RECIPIENT OUTPUT | revoke-old REVOKE-OLD-NODE" >&2; exit 64 ;;
+esac

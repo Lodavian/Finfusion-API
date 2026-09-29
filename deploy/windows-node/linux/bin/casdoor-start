@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+umask 077
+origin="$(python3 -c 'import json; print("https://" + json.load(open("/etc/finfusion/domains.json"))["auth"])')"
+data_source="$(cat /run/finfusion/secrets/casdoor_data_source)"
+mkdir -p /var/lib/finfusion/casdoor/conf
+chmod 700 /var/lib/finfusion/casdoor/conf
+cat > /var/lib/finfusion/casdoor/conf/app.conf <<EOF
+appname = casdoor
+httpport = 8000
+runmode = prod
+SessionOn = true
+copyrequestbody = true
+showSql = false
+driverName = postgres
+dataSourceName = ${data_source}
+dbName = casdoor
+origin = ${origin}
+EOF
+chmod 600 /var/lib/finfusion/casdoor/conf/app.conf
+cd /opt/casdoor
+exec /opt/casdoor/casdoor --createDatabase=false

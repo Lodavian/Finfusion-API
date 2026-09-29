@@ -1,0 +1,15 @@
+[Unit]
+Description=Decrypt Finfusion age vault into volatile storage
+Before=finfusion.service cloudflared.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/finfusion/bin/vault.py unseal
+ExecStop=/opt/finfusion/bin/vault.py purge
+RemainAfterExit=yes
+PrivateTmp=true
+ProtectHome=true
+ReadWritePaths=/run/finfusion
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+failed=0
+for unit in postgresql casdoor finfusion cloudflared; do
+  if ! systemctl is-active --quiet "$unit"; then echo "FAIL unit:$unit"; failed=1; else echo "OK unit:$unit"; fi
+done
+if ss -lnt | awk '{print $4}' | grep -Eq '(^|:)0\.0\.0\.0:|\[::\]:'; then
+  echo "FAIL unexpected wildcard listener"; failed=1
+else
+  echo "OK loopback-only listeners"
+fi
+for path in /var/lib/finfusion/vault/identity.txt /var/lib/finfusion/vault/secrets.age; do
+  mode="$(stat -c '%a:%U' "$path" 2>/dev/null || true)"
+  if [[ "$mode" != "600:root" ]]; then echo "FAIL permissions:$path:$mode"; failed=1; else echo "OK permissions:$path"; fi
+done
+curl --fail --silent --max-time 3 http://127.0.0.1:8080/livez >/dev/null || { echo "FAIL livez"; failed=1; }
+exit "$failed"

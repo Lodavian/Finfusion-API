@@ -1,0 +1,8 @@
+[Unit]
+Description=Refresh Finfusion Cloudflare Tunnel health gate
+After=cloudflared.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/finfusion/bin/tunnel_health.py
+ReadWritePaths=/run/finfusion

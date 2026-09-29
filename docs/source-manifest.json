@@ -1,0 +1,418 @@
+{
+  "baseCommit": "a6e049c",
+  "files": [
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/admin.py",
+      "sourceSha256": "3224aea8c8629d512a1f3cae19704df7c8416113d9e4b82c324143683785a56d",
+      "destination": "finfusion/admin.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/api.py",
+      "sourceSha256": "76ba3566550e5f1f7b9ec6d9aefd6f8d342ee5c5b20ab53bd8f63c703b7288b6",
+      "destination": "finfusion/api.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/casdoor.py",
+      "sourceSha256": "3188313c22b0570dce99ea11c3da0d6c95a7185b633e688bb96f2f681ae9323d",
+      "destination": "finfusion/casdoor.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/controls.py",
+      "sourceSha256": "62d4cc3e4f28b517c0b83f63411595aad567f8c79f9b93ac9b4b59e4a3dec2c4",
+      "destination": "finfusion/controls.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/gateway.py",
+      "sourceSha256": "1700e30f2b354f1e9604f8b74cfd29a642023ed3fde3c00d97c5d10981667d18",
+      "destination": "finfusion/gateway.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/infrastructure.py",
+      "sourceSha256": "5d27aaec78cd4f7c4d673cdf2c3cb656e21d74d641bb08da4d0754d738661b42",
+      "destination": "finfusion/infrastructure.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/main.py",
+      "sourceSha256": "4ca3826d172a673b2178917460a479363841485e0efb67a2b9aac03e346b10e5",
+      "destination": "finfusion/main.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/models.py",
+      "sourceSha256": "775607d5af79ce4980ccea3ee215bfd80e4d04fc5338ab09dec5b9bc847d695e",
+      "destination": "finfusion/models.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/postgres.py",
+      "sourceSha256": "3c1a1db0c3eea960196b861933367cc1a5f6fb98fc8faa87923c902bd641cbb8",
+      "destination": "finfusion/postgres.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/security.py",
+      "sourceSha256": "e0b7e434f09deca7086596e30404766ed385a6b0ff9bce72f73ec41b572b62cc",
+      "destination": "finfusion/security.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/service.py",
+      "sourceSha256": "ca0a6b8860497fa2a19f2c285113a24050e4e28ac04222a8f301e7366708ef38",
+      "destination": "finfusion/service.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/store.py",
+      "sourceSha256": "6f610874f017b455828a51e3f556c61e75993174b7ab742c1783eec3526bef61",
+      "destination": "finfusion/store.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/__init__.py",
+      "sourceSha256": "88a2b10d7645532aa3ebd06668bfbd9a2ed401d299fa7a5b9391a27fbed32270",
+      "destination": "finfusion/__init__.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order_server/migrations/001_initial.sql",
+      "sourceSha256": "6a8b6a963f39465baf912a1704612e1d6a14588a3ebd1e7eb2ed37999ea70d4b",
+      "destination": "finfusion/migrations/001_initial.sql"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "server_admin/app.js",
+      "sourceSha256": "9b402a29c95acd573850ab5b4fab06abe1473756b1b2a8bb6b4d9f3de29cce1d",
+      "destination": "server_admin/app.js"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "server_admin/index.html",
+      "sourceSha256": "1cccd04a95ff03f1b084c8da543b8917290011ca56f8f7c203ab158144954846",
+      "destination": "server_admin/index.html"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "server_admin/styles.css",
+      "sourceSha256": "8cbf096f55e4a1999e9b282bfc2d5fe679948d00a1c162613f2367fee305d446",
+      "destination": "server_admin/styles.css"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order/__init__.py",
+      "sourceSha256": "15415af894de4fcdf096bc37f94fccc2724bf6ddc8c7a41fdf8f1ffc0e67a817",
+      "destination": "finfusion_common/__init__.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order/utils.py",
+      "sourceSha256": "07650278fa644c7c689eb231680baf8535f446905e703235a3ce4d698d681d0c",
+      "destination": "finfusion_common/utils.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "fast_order/errors.py",
+      "sourceSha256": "5ccb1134910f917305e78b09fe33b437261b94b516be88afc2f9c4ac4f94fb53",
+      "destination": "finfusion_common/errors.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "tests/__init__.py",
+      "sourceSha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+      "destination": "tests/__init__.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "tests/test_server_api.py",
+      "sourceSha256": "5878862816f81c5550b5bb04ee36b9e49ce812084413c9d09ab774b7feae8e02",
+      "destination": "tests/test_server_api.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "tests/test_server_controls.py",
+      "sourceSha256": "32a85801d75a7756e701a5b611248c4eb9875ae0da5f62b879a48a341a45d366",
+      "destination": "tests/test_server_controls.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "tests/test_server_infrastructure.py",
+      "sourceSha256": "d9dadf20cffc7fb2432edd43eef4c37ba41a85963467e9e9bb4729dbed6392d2",
+      "destination": "tests/test_server_infrastructure.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/config.example.json",
+      "sourceSha256": "d44bd52035f0bd1c08f89655897144e72f4f8d7629ee439c7454e7d522cf09e0",
+      "destination": "deploy/windows-node/config.example.json"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/dependencies.lock.json",
+      "sourceSha256": "4cffaa7b4c9b636dad89be3570a6d9a5562f994e12e97f555be2b794db4733d1",
+      "destination": "deploy/windows-node/dependencies.lock.json"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/python-requirements.in",
+      "sourceSha256": "7f146236c7fe753c3db34a2b96bad6e3524b78fb0823278e196a4ace15ca2790",
+      "destination": "deploy/windows-node/python-requirements.in"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/README.md",
+      "sourceSha256": "100ea37530b105e15fdc54ca778b89a0641323880d2ecb905870d49cc07d42a7",
+      "destination": "deploy/windows-node/README.md"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/install.sh",
+      "sourceSha256": "51edbe7472a0d3c3265372448633504ebb81f7fda24a861977989ee9aa1f5540",
+      "destination": "deploy/windows-node/linux/install.sh"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/server.env.template",
+      "sourceSha256": "4610d1126af2af875ccd8ac435a9890f11c40dfccf1de9c9a1cf7e3ceac11e77",
+      "destination": "deploy/windows-node/linux/server.env.template"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/Install-FastOrderNode.ps1",
+      "sourceSha256": "95b3f41adad19a72b28f53bad0c79cda00ca2270094b2604d41edc8b464809bc",
+      "destination": "deploy/windows-node/windows/Install-FinfusionNode.ps1"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/Invoke-WslBootstrap.ps1",
+      "sourceSha256": "18eaace29b7fdb9cfac1ee27f58deed80270398aa81ddaa55d8e2f1078a51b78",
+      "destination": "deploy/windows-node/windows/Invoke-WslBootstrap.ps1"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/Uninstall-FastOrderNode.ps1",
+      "sourceSha256": "f3fb1f98ba53310207ab94eebcf904288a9877655d41dc46cd2b091f315fb3aa",
+      "destination": "deploy/windows-node/windows/Uninstall-FinfusionNode.ps1"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/FastOrder.Control/FastOrder.Control.csproj",
+      "sourceSha256": "51a9e71fcaa9f40f2d0ce794648ef912336314a6b605c7e7692d72dbd058ab37",
+      "destination": "deploy/windows-node/windows/Finfusion.Control/Finfusion.Control.csproj"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/FastOrder.Control/Program.cs",
+      "sourceSha256": "7825fb8e8bfbbbfa7b13d0a75373db1384f9d9450f108bc7d67ae0dd8d34f910",
+      "destination": "deploy/windows-node/windows/Finfusion.Control/Program.cs"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/FastOrder.NodeHost/FastOrder.NodeHost.csproj",
+      "sourceSha256": "926eba6061fb27a9b6f6d82161540fe70a293d0d497b20ac52f30114289eac90",
+      "destination": "deploy/windows-node/windows/Finfusion.NodeHost/Finfusion.NodeHost.csproj"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/windows/FastOrder.NodeHost/Program.cs",
+      "sourceSha256": "9afcac21024e6b2b021f5099f39d7017374873b33d139476e06ee0d9eb0d2385",
+      "destination": "deploy/windows-node/windows/Finfusion.NodeHost/Program.cs"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/backup_vault.py",
+      "sourceSha256": "b92bf359506493a3dca0831d4a29e68c6b7043488681d31919cc622449fd5a34",
+      "destination": "deploy/windows-node/linux/bin/backup_vault.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/casdoor-start",
+      "sourceSha256": "4e9ba9223ac5aa01f9a10349d97865f68dd758faeb194e0a8a3a649432b092fb",
+      "destination": "deploy/windows-node/linux/bin/casdoor-start"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/install-release",
+      "sourceSha256": "dadd7d7b073270007d5434cab61f94c63f2ad12b094ab6b5cc892971b10bfc68",
+      "destination": "deploy/windows-node/linux/bin/install-release"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-backup",
+      "sourceSha256": "f1fc038fe273418ce6a765dc3c5dbdbb4cb5a41d3e9e91a5931ddc6423182658",
+      "destination": "deploy/windows-node/linux/bin/node-backup"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-control",
+      "sourceSha256": "f8973d640d923e4eb36a3d631e2e64245e223abe1d10b744efed427f656eac83",
+      "destination": "deploy/windows-node/linux/bin/node-control"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-doctor",
+      "sourceSha256": "3b93a4de6f97392d914e56203acadfa225f8237ba74ca48b3b20016b49812127",
+      "destination": "deploy/windows-node/linux/bin/node-doctor"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-migrate",
+      "sourceSha256": "f2e61d47a07553c24c0e751edc79aec4a8e14fb95c7c82e8b431fb25223f6d40",
+      "destination": "deploy/windows-node/linux/bin/node-migrate"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-restore",
+      "sourceSha256": "3ae5f9299ba9bb5390104af064dfde8b6eb73193ef20ffe30f875af3c2b6d04a",
+      "destination": "deploy/windows-node/linux/bin/node-restore"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node-update",
+      "sourceSha256": "c26b82526a9389d4a31180c2f3e68f58300b9371290046e520ce2a8fb98ab790",
+      "destination": "deploy/windows-node/linux/bin/node-update"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node_configure.py",
+      "sourceSha256": "0aa84caa5ef7394af48a4dc5c2956e390f79038bc6c3831b1370836659a92643",
+      "destination": "deploy/windows-node/linux/bin/node_configure.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/node_state.py",
+      "sourceSha256": "d91cdd3a100ed4454daffb9d6c43895bbdd4923358e65f7158c19076486a1529",
+      "destination": "deploy/windows-node/linux/bin/node_state.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/tunnel_health.py",
+      "sourceSha256": "d1bf860f2374f1be948ba8ee4070e3dafb723fb8ff9b7b8c06ada8760b2d28f0",
+      "destination": "deploy/windows-node/linux/bin/tunnel_health.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/bin/vault.py",
+      "sourceSha256": "31106bba961c3fd6c6cddb6b96bab59c8eab0e9917b9ef2b1478b1a895d40f95",
+      "destination": "deploy/windows-node/linux/bin/vault.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/casdoor.service",
+      "sourceSha256": "af3ab7ce62154205507b8bb84495cfd3a659f95e4961271650da8e79dd62058f",
+      "destination": "deploy/windows-node/linux/systemd/casdoor.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/cloudflared.service",
+      "sourceSha256": "edd0f116a550a6e41e4e0ba5c60fbb8a7d7b4b32ba76895fb29cd3180833072a",
+      "destination": "deploy/windows-node/linux/systemd/cloudflared.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/fastorder-node-default-off.service",
+      "sourceSha256": "6856351ed778c8d654b14734e57cfc6a986f2eff6bcc7cc6a6c2d96bc5bdb3fb",
+      "destination": "deploy/windows-node/linux/systemd/finfusion-node-default-off.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/fastorder-tunnel-health.service",
+      "sourceSha256": "d23e9fb0faee2b3c2e79358e880707f2582e601812e1062740a957729e6dfae8",
+      "destination": "deploy/windows-node/linux/systemd/finfusion-tunnel-health.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/fastorder-tunnel-health.timer",
+      "sourceSha256": "2b47daffa13c06161d6de04c828ac2f5dbc04a294eb33e1bd2b2d754a611c476",
+      "destination": "deploy/windows-node/linux/systemd/finfusion-tunnel-health.timer"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/fastorder-vault.service",
+      "sourceSha256": "dad69bf3cc4c8a1d31727019f946a9a5120d3b0d214932dc6f1b8ef1085cf573",
+      "destination": "deploy/windows-node/linux/systemd/finfusion-vault.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "deploy/windows-node/linux/systemd/fastorder.service",
+      "sourceSha256": "c61f073f9371842f887b31429db6c9dbc1d22007b949a979af022794bdd17c99",
+      "destination": "deploy/windows-node/linux/systemd/finfusion.service"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/server-requirements.lock",
+      "sourceSha256": "d1676bcefd73ec4dd68dc39d0af6a538eebba5408d5c186205ec3817325e9c90",
+      "destination": "packaging/server-requirements.lock"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/build_windows_node.ps1",
+      "sourceSha256": "4e22bdb3e426e08a766dd208a4d12f77f9f0c97e491ca20825ba13278a3ad19d",
+      "destination": "packaging/build_windows_node.ps1"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/build_windows_node_dev.ps1",
+      "sourceSha256": "6c5d03153d82b8dc4ac18458fc846da6836947d24a66f456aedde0e368bf723c",
+      "destination": "packaging/build_windows_node_dev.ps1"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/build_debian12_wsl_rootfs.sh",
+      "sourceSha256": "0c9169d7128afa9c400d34a2499654add00d58d11b7a5abc0b1e1a54c12312a5",
+      "destination": "packaging/build_debian12_wsl_rootfs.sh"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/extract_casdoor_release.py",
+      "sourceSha256": "28ab24298cf738b059a5cd209b5ea92034ebc944ce8a255cfe207e748197f739",
+      "destination": "packaging/extract_casdoor_release.py"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/FastOrderServer.iss",
+      "sourceSha256": "98940740f8070cda3c61fb5d66e3ccd2799d51cfc6d117771c2204a95802c447",
+      "destination": "packaging/FinfusionServer.iss"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/LICENSES/WINDOWS_NODE_THIRD_PARTY.md",
+      "sourceSha256": "2e5edc5d06726d0bab4acb5c51b9c49891daf2c9ddbf4038b89fd6c9366a8b9a",
+      "destination": "packaging/LICENSES/WINDOWS_NODE_THIRD_PARTY.md"
+    },
+    {
+      "sourceProject": "server",
+      "sourcePath": "packaging/assets/FastOrder.ico",
+      "sourceSha256": "b5fea57564963c21a99a9ae139365221060a807c72c1b998517db958a5f8b2d5",
+      "destination": "packaging/assets/Finfusion.ico"
+    }
+  ],
+  "adaptedReferences": [
+    {
+      "sourceProject": "combined",
+      "sourcePath": "fast_order/webull_gateway.py",
+      "sha256": "546297937e294ab294e4fe570cd6d8656fe8f4a330d13263c13f51ba4e73c967",
+      "methods": [
+        "_position_decimal",
+        "_position_number_text",
+        "get_positions",
+        "get_usd_buying_power"
+      ]
+    },
+    {
+      "sourceProject": "hong-kong-gateway",
+      "sourcePath": "fast_order/brokers/contracts.py",
+      "purpose": "Broker protocol layering"
+    },
+    {
+      "sourceProject": "hong-kong-gateway",
+      "sourcePath": "fast_order/config.py",
+      "purpose": "Sandbox endpoint selection"
+    }
+  ]
+}

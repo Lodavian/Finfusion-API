@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+bundle="$(readlink -f "${1:?bundle required}")"
+test -f "$bundle.manifest.json"
+test -f "$bundle.manifest.json.sig"
+minisign -Vm "$bundle.manifest.json" -P "$(cat /etc/finfusion/update-minisign.pub)"
+python3 - "$bundle" "$bundle.manifest.json" <<'PY'
+import hashlib, json, pathlib, sys
+bundle = pathlib.Path(sys.argv[1])
+manifest = json.loads(pathlib.Path(sys.argv[2]).read_text())
+actual = hashlib.sha256(bundle.read_bytes()).hexdigest()
+if actual != manifest.get("bundleSha256"):
+    raise SystemExit("update bundle SHA-256 mismatch")
+if manifest.get("product") != "Finfusion Node Update" or manifest.get("schemaVersion") != 1:
+    raise SystemExit("unsupported update manifest")
+PY
+/opt/finfusion/bin/install-release "$bundle"

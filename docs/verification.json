@@ -1,0 +1,60 @@
+{
+  "verifiedAt": "2026-09-29T02:11:26.572689+00:00",
+  "pythonTests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "38",
+    "time": "2.151",
+    "timestamp": "2026-09-29T10:10:52.645511+08:00",
+    "hostname": "B550"
+  },
+  "junitReport": "runtime/postgres-test-43d72e53d3854f1aac3e54f738026752/tests.xml",
+  "postgres": {
+    "version": "17.11",
+    "source": "https://get.enterprisedb.com/postgresql/postgresql-17.11-3-windows-x64-binaries.zip",
+    "archiveSha256": "4b8db0930c38f6ef845db919551dedda3b6b845aeb0927b3d79a6e8e9e4537cf",
+    "scope": "Disposable local cluster; migrations, environment binding, persistence and restart. No Webull connection.",
+    "stopped": true
+  },
+  "originalSourceHashes": {
+    "checked": 66,
+    "changed": 0
+  },
+  "bashSyntax": {
+    "passed": 10,
+    "files": [
+      "deploy\\windows-node\\linux\\install.sh",
+      "deploy\\windows-node\\linux\\bin\\casdoor-start",
+      "deploy\\windows-node\\linux\\bin\\install-release",
+      "deploy\\windows-node\\linux\\bin\\node-backup",
+      "deploy\\windows-node\\linux\\bin\\node-control",
+      "deploy\\windows-node\\linux\\bin\\node-doctor",
+      "deploy\\windows-node\\linux\\bin\\node-migrate",
+      "deploy\\windows-node\\linux\\bin\\node-restore",
+      "deploy\\windows-node\\linux\\bin\\node-update",
+      "packaging\\build_debian12_wsl_rootfs.sh"
+    ]
+  },
+  "powershellSyntax": "passed",
+  "javascriptSyntax": "passed",
+  "dependencyCheck": "No broken requirements found.",
+  "windowsBuilds": {
+    "sdk": "8.0.415",
+    "Finfusion.NodeHost": "passed; 0 warnings; 0 errors",
+    "Finfusion.Control": "passed; 0 warnings; 0 errors"
+  },
+  "notValidated": [
+    "WSL2 service deployment on the separate target computer (deferred to deployment phase)",
+    "Linux release and signed installer",
+    "Encrypted backup and restore on target WSL host",
+    "Real Casdoor and Cloudflare Tunnel",
+    "Webull Sandbox",
+    "LIVE deployment and trading"
+  ],
+  "independenceCheck": {
+    "checkedFiles": 69,
+    "errors": []
+  }
+}

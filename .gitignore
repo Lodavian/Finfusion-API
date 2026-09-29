@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+build/
+runtime/
+logs/
+.env
+*.pem
+*.key
+*.db
+*.log
+secrets/
+**/bin/Release/
+**/obj/

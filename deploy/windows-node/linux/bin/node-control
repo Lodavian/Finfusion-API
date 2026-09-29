@@ -1,0 +1,54 @@
+#!/bin/bash
+set -euo pipefail
+
+command_name="${1:-status}"
+shift || true
+case "$command_name" in
+  status)
+    systemctl is-active finfusion postgresql casdoor cloudflared || true
+    /opt/finfusion/bin/node_state.py show
+    curl --fail --silent --max-time 3 http://127.0.0.1:8080/readyz || true
+    ;;
+  configure)
+    /opt/finfusion/bin/node_configure.py "${1:?configuration path required}"
+    ;;
+  activate)
+    systemctl is-active --quiet postgresql casdoor finfusion cloudflared
+    curl --fail --silent --max-time 3 http://127.0.0.1:2000/ready >/dev/null
+    /opt/finfusion/bin/node_state.py activate --reason operator
+    ;;
+  deactivate)
+    /opt/finfusion/bin/node_state.py deactivate --reason operator
+    ;;
+  start)
+    /opt/finfusion/bin/node_state.py deactivate --reason service-start
+    systemctl reset-failed finfusion-vault || true
+    systemctl start postgresql finfusion-node-default-off finfusion-vault casdoor finfusion cloudflared finfusion-tunnel-health.timer
+    ;;
+  stop)
+    /opt/finfusion/bin/node_state.py deactivate --reason service-stop
+    systemctl stop cloudflared finfusion casdoor postgresql finfusion-vault
+    ;;
+  restart)
+    /opt/finfusion/bin/node_state.py deactivate --reason service-restart
+    systemctl restart finfusion-vault postgresql casdoor finfusion cloudflared
+    ;;
+  doctor)
+    /opt/finfusion/bin/node-doctor
+    ;;
+  logs)
+    exec journalctl --no-pager -n "${1:-200}" -u finfusion -u casdoor -u cloudflared -u postgresql
+    ;;
+  backup)
+    exec /opt/finfusion/bin/node-backup "${1:?backup output path required}"
+    ;;
+  restore)
+    /opt/finfusion/bin/node_state.py deactivate --reason restore
+    exec /opt/finfusion/bin/node-restore "${1:?encrypted backup input required}" "${2:?external age identity required}"
+    ;;
+  update)
+    /opt/finfusion/bin/node_state.py deactivate --reason update
+    exec /opt/finfusion/bin/node-update "${1:?signed update bundle required}"
+    ;;
+  *) echo "unsupported command" >&2; exit 64 ;;
+esac

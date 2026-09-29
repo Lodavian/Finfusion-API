@@ -1,0 +1,21 @@
+[Unit]
+Description=Finfusion Casdoor identity service
+After=network-online.target postgresql.service finfusion-vault.service
+Requires=postgresql.service finfusion-vault.service
+
+[Service]
+Type=simple
+User=finfusion
+Group=finfusion
+ExecStart=/opt/finfusion/bin/casdoor-start
+WorkingDirectory=/opt/casdoor
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/finfusion/casdoor
+BindReadOnlyPaths=/var/lib/finfusion/casdoor/conf:/opt/casdoor/conf
+
+[Install]
+WantedBy=multi-user.target
