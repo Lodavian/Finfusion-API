@@ -1,5 +1,7 @@
 # Finfusion API
 
+**2026-10-04 服务器迁移交接入口**：新服务器 Codex 先读 [AGENTS.md](AGENTS.md)，再读 [正式服务器交接文档](docs/server-deployment-handoff.md) 与 [迁移审计记录](docs/server-migration-audit.md)。目标 WSL2 Ubuntu 尚待部署验证，已有 Debian 专用节点安装脚本不能直接当作 Ubuntu 安装器。
+
 面向程序调用的 Webull HK 机构交易服务器。用户以 P-256 私钥签名调用 HTTPS API，服务器负责账户授权、风控、订单去重、券商访问、持久化和状态回传。管理员通过 Casdoor 登录管理台。
 
 本目录是独立项目，不读取原有项目目录。第一版只维护 Windows x64 + WSL2 Debian 12 的部署路线。Windows 原生 Python 环境用于开发和模拟测试；正式入口在 Linux 中运行。

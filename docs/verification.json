@@ -7,8 +7,7 @@
     "skipped": "0",
     "tests": "38",
     "time": "2.151",
-    "timestamp": "2026-09-29T10:10:52.645511+08:00",
-    "hostname": "B550"
+    "timestamp": "2026-09-29T10:10:52.645511+08:00"
   },
   "junitReport": "runtime/postgres-test-43d72e53d3854f1aac3e54f738026752/tests.xml",
   "postgres": {
