@@ -24,6 +24,10 @@ from .service import InstitutionalTradingService
 from .admin import AdminService
 from .infrastructure import InfrastructureGate
 from .errors import ApiError, IdempotencyConflict
+from .market import MarketData
+from .account_view import read_cash_fields
+from . import __version__
+from .deployment import readonly_perimeter
 
 
 DEVICE_LABEL_RE = re.compile(r"^[\w .()\-]{1,80}$", re.UNICODE)
@@ -94,8 +98,16 @@ class ServerApi:
         record_login: Callable[[str, str], Awaitable[None]] | None = None,
         record_rejection: Callable[[str, str, str], Awaitable[None]] | None = None,
         infrastructure: InfrastructureGate | None = None,
+        environment_name: str = "UNKNOWN",
+        market_data: MarketData | None = None,
         consume_nonce: Callable[[str, str], Awaitable[None]] | None = None,
+        deployment_mode: str = "STANDARD",
     ):
+        if deployment_mode not in {"STANDARD", "READ_ONLY"}:
+            raise ValueError("Unknown deployment mode")
+        self.deployment_mode = deployment_mode
+        self.market_data = market_data or MarketData(service.gateway, service.limits.quote_stale_seconds)
+        self.environment_name = environment_name
         self.service = service
         self.controls = controls
         self.authenticator = authenticator
@@ -119,14 +131,22 @@ class ServerApi:
         self.service.publisher = self.events.publish
 
     def application(self) -> web.Application:
-        app = web.Application(client_max_size=16 * 1024, middlewares=[self.error_middleware])
+        middlewares = [self.error_middleware]
+        if self.deployment_mode == "READ_ONLY": middlewares.insert(0, readonly_perimeter)
+        app = web.Application(client_max_size=16 * 1024, middlewares=middlewares)
         app.add_routes(
             [
                 web.get("/livez", self.livez),
                 web.get("/readyz", self.readyz),
+                web.get("/v1/info", self.info),
                 web.post("/admin/v1/clients", self.register_client),
                 web.patch("/admin/v1/clients/{client_id}", self.configure_client),
                 web.get("/v1/accounts", self.accounts),
+                web.get("/v1/accounts/{account_ref}/ui-context", self.ui_context),
+                web.get("/v1/market/symbols", self.market_symbols),
+                web.get("/v1/market/snapshot", self.market_snapshot),
+                web.get("/v1/market/trades", self.market_trades),
+                web.get("/v1/market/events", self.market_events),
                 web.get("/v1/accounts/{account_ref}/positions", self.positions),
                 web.get("/v1/accounts/{account_ref}/balance", self.balance),
                 web.post("/v1/symbols/select", self.select_symbol),
@@ -188,6 +208,23 @@ class ServerApi:
         except Exception:
             logging.getLogger("finfusion").exception("Unhandled API failure")
             return self._error("操作失败，请按 Idempotency-Key 查询原请求状态", 500, "INTERNAL_ERROR")
+
+    async def info(self, request: web.Request) -> web.Response:
+        principal = await self._principal(request)
+        if not self.controls.authorize(principal).can_read:
+            raise AccessDenied("客户端无读取权限")
+        operations = {"status":"UNKNOWN", "issues":[]}
+        try:
+            value = json.loads(Path("/var/lib/finfusion/ops/health.json").read_text())
+            if value.get("status") in {"OK","WARNING","ALERT"} and isinstance(value.get("issues"),list):
+                operations = {"status":value["status"], "issues":[x for x in value["issues"] if isinstance(x,str) and re.fullmatch(r"[A-Z_]{1,48}",x)],
+                    "checkedAt":value.get("checkedAt"), "backupStatus":value.get("backupStatus")}
+        except (OSError,ValueError,TypeError):
+            pass
+        return web.json_response({"product":"Finfusion Server 1.0", "version":__version__,
+            "apiProtocol":"FINFUSION-V1", "deploymentMode":self.deployment_mode,
+            "operations":operations,
+            "capabilities":["accounts","positions","usd-cash","orders","order-events","market-events","durable-idempotency"]})
 
     async def livez(self, _request: web.Request) -> web.Response:
         return web.json_response({"ok": True, "uptimeSeconds": int(time.time() - self.started_at)})
@@ -257,7 +294,12 @@ class ServerApi:
 
     async def balance(self, request: web.Request) -> web.Response:
         principal = await self._principal(request)
-        return web.json_response(await self.service.balance(principal, request.match_info["account_ref"]))
+        ref = request.match_info["account_ref"]
+        result = await self.service.balance(principal, ref)
+        account = self.controls.resolve(principal, ref, mutation="read")
+        cash = await read_cash_fields(self.service.gateway, account.broker_account_id)
+        self.controls.resolve(principal, ref, mutation="read")
+        return web.json_response({**result, **cash})
 
     async def accounts(self, request: web.Request) -> web.Response:
         principal = await self._principal(request)
@@ -330,6 +372,120 @@ class ServerApi:
         except ValueError:
             raise ValueError("请求ID无效") from None
         return web.json_response(await self.service.get_request(principal, account_ref, request.match_info["request_id"]))
+
+    async def _market_access(self, request):
+        principal = await self._principal(request)
+        ref = str(request.query.get("accountRef") or request.match_info.get("account_ref") or "")
+        self.controls.resolve(principal, ref, mutation="read")
+        return principal, ref
+
+    async def ui_context(self, request):
+        principal, ref = await self._market_access(request)
+        account = next(a for a in self.controls.public_accounts(principal) if a["accountRef"] == ref)
+        database_ready = await self.database_healthy() if self.database_healthy is not None else True
+        self.controls.resolve(principal, ref, mutation="read")
+        ready = bool(database_ready and getattr(self.service.gateway, "events_healthy", False) and
+            getattr(self.service.gateway, "market_healthy", False) and self.service.reconciliation_ready and
+            self.infrastructure.snapshot.mutation_ready)
+        account = next(a for a in self.controls.public_accounts(principal) if a["accountRef"] == ref)
+        limits = self.service.limits
+        rules = {"maxOrderQty": limits.max_order_qty, "maxOrderValue": str(limits.max_order_value),
+                 "maxMarketQty": limits.max_market_qty, "maxMarketEstimatedValue": str(limits.max_market_estimated_value),
+                 "maxDailyGrossNotional": str(limits.max_daily_gross_notional), "maxOpenOrders": limits.max_open_orders,
+                 "quoteStaleSeconds": limits.quote_stale_seconds, "timeInForce": "DAY", "tradingSession": "CORE"}
+        return web.json_response({"accountRef": ref, "environment": self.environment_name,
+            "serverVersion":__version__, "deploymentMode":self.deployment_mode,
+            "tradeDeploymentAllowed":self.deployment_mode == "STANDARD",
+            "tradeEnabled": bool(account["tradeEnabled"] and ready and self.deployment_mode == "STANDARD"), "tradeAuthorized": account["tradeEnabled"], "serverReady": ready, "cancelEnabled": bool(self.controls.authorize(principal).can_cancel and self.deployment_mode == "STANDARD"),
+            "controlVersion": account["controlVersion"], "riskRules": rules})
+
+    async def market_symbols(self, request):
+        principal, ref = await self._market_access(request)
+        symbols = await self.market_data.symbols(request.query.get("q", ""))
+        self.controls.resolve(principal, ref, mutation="read")
+        return web.json_response({"accountRef": ref, "symbols": symbols})
+
+    async def market_snapshot(self, request):
+        principal, ref = await self._market_access(request)
+        symbol = normalize_symbol(request.query.get("symbol"))
+        snapshot, _trades = await self.market_data.read(symbol)
+        self.controls.resolve(principal, ref, mutation="read")
+        return web.json_response({**snapshot, "accountRef": ref})
+
+    async def market_trades(self, request):
+        principal, ref = await self._market_access(request)
+        symbol = normalize_symbol(request.query.get("symbol"))
+        count = int(request.query.get("limit", "50"))
+        if not 1 <= count <= 200:
+            raise ValueError("成交条数必须在 1 到 200 之间")
+        snapshot, trades = await self.market_data.read(symbol)
+        self.controls.resolve(principal, ref, mutation="read")
+        return web.json_response({"accountRef": ref, "symbol": symbol, "status": snapshot["status"], "trades": trades[:count]})
+
+    async def market_events(self, request):
+        principal, ref = await self._market_access(request)
+        symbol = normalize_symbol(request.query.get("symbol"))
+        # Refuse unavailable/denied data before upgrading to WebSocket.
+        await self.market_data.read(symbol)
+        reference = "market:" + uuid.uuid4().hex
+        gateway = self.service.gateway
+        socket = web.WebSocketResponse(heartbeat=20, max_msg_size=4096)
+        acquired = False
+        producer = None
+        async def release():
+            nonlocal acquired
+            if acquired:
+                acquired = False
+                try:
+                    await gateway.release_symbol(reference)
+                except Exception:
+                    logging.getLogger("finfusion").warning("Market reference release failed; local reference removed")
+        try:
+            acquired = True
+            try:
+                await gateway.select_symbol(reference, symbol)
+            except Exception as exc:
+                if getattr(exc, 'http_status', None) in (401,403):
+                    raise ApiError('MARKET_DATA_DENIED','券商行情订阅权限不足',403) from None
+                raise ApiError('MARKET_DATA_UNAVAILABLE','券商行情订阅暂不可用',503) from None
+            await socket.prepare(request)
+            async def publish():
+                expiry = time.monotonic() + 300
+                while not socket.closed and time.monotonic() < expiry:
+                    try:
+                        self.controls.resolve(principal, ref, mutation="read")
+                    except AccessDenied:
+                        await release()
+                        await socket.close(code=1008, message=b"authorization revoked")
+                        return
+                    snapshot, trades = await self.market_data.read(symbol)
+                    self.controls.resolve(principal, ref, mutation="read")
+                    await asyncio.wait_for(socket.send_json({"type": "market.update", "snapshot": {**snapshot, "accountRef": ref},
+                        "trades": {"accountRef": ref, "symbol": symbol, "status": snapshot["status"], "trades": trades[:50]}}), timeout=2)
+                    await asyncio.sleep(1)
+                await release()
+                await socket.close(code=1000, message=b"reauthenticate")
+            async def supervise():
+                try:
+                    await publish()
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    await release()
+                    await socket.close(code=1011, message=b"market unavailable")
+            await socket.send_json({"type": "connected", "accountRef": ref, "symbol": symbol})
+            producer = asyncio.create_task(supervise())
+            async for message in socket:
+                if message.type == WSMsgType.TEXT and message.data != "ping":
+                    await socket.close(code=1008, message=b"read-only stream")
+                elif message.type == WSMsgType.ERROR:
+                    break
+        finally:
+            await asyncio.shield(release())
+            if producer:
+                producer.cancel()
+                await asyncio.gather(producer, return_exceptions=True)
+        return socket
 
     async def websocket(self, request: web.Request) -> web.StreamResponse:
         principal = await self._principal(request)

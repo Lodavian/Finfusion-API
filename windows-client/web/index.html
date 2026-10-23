@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <meta name="color-scheme" content="dark" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'" />
+    <title>Finfusion Client 1.0</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <main class="app-shell">
+      <header class="topbar glass">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div>
+            <p class="eyebrow">FINFUSION API · SINGLE SYMBOL</p>
+            <h1>Finfusion Client 1.0</h1>
+            <small id="versionText">客户端 1.0 · 服务器未确认</small>
+          </div>
+        </div>
+        <div class="top-actions">
+          <div class="buying-power-chip" aria-label="美元购买力">
+            <span>美元购买力</span>
+            <strong id="headerUsdBuyingPower">—</strong>
+          </div>
+          <div id="modeBadge" class="mode-badge">UNKNOWN</div>
+          <button id="accountMenuButton" class="status-cluster account-menu-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="accountPopover">
+            <span id="statusDot" class="status-dot" aria-hidden="true"></span>
+            <span class="status-copy"><strong id="statusText">未连接</strong><small id="statusDetail">尚未进行签名鉴权</small><small id="accountText" class="account-text">账户未连接</small></span>
+            <span class="account-menu-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <button id="connectButton" class="button button-primary">连接服务器</button>
+        </div>
+        <div id="accountPopover" class="account-popover glass" role="dialog" aria-label="账户操作" hidden>
+        <div class="popover-heading"><div><p class="eyebrow">ACCOUNT</p><strong id="popoverAccountName">账户未连接</strong></div><span id="popoverConnectionState" class="soft-badge">OFFLINE</span></div>
+        <div class="popover-actions">
+          <button id="popoverReconnectButton" class="popover-action" type="button">重新连接</button>
+          <button id="popoverSwitchButton" class="popover-action" type="button">切换账户</button>
+          <button id="popoverApiButton" class="popover-action" type="button">API 设置</button>
+          <button id="popoverDisconnectButton" class="popover-action" type="button">断开连接</button>
+          <button id="refreshButton" class="popover-action" type="button">手动刷新 / 补查请求</button><select id="accountSelect" class="popover-action" aria-label="授权账户"><option value="">选择授权账户</option></select>
+        </div>
+        </div>
+      </header>
+
+      <section class="symbol-strip glass">
+        <form id="symbolForm" class="symbol-form">
+          <label for="symbolInput">搜索股票</label>
+          <div class="symbol-control">
+            <input id="symbolInput" maxlength="10" autocomplete="off" spellcheck="false" value="AAPL" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="symbolResults" placeholder="输入股票代码" />
+            <button type="submit" class="icon-button" aria-label="搜索股票">→</button>
+          </div>
+          <div id="symbolResults" class="symbol-results" role="listbox" aria-label="股票候选" hidden></div>
+          <small id="symbolSearchHint" class="symbol-search-hint">输入完整代码后从候选中选择</small>
+        </form>
+        <div class="hero-quote">
+          <div>
+            <span id="symbolName" class="symbol-name">AAPL</span>
+            <span id="marketState" class="market-state">等待实时行情</span>
+          </div>
+          <strong id="lastPrice" class="last-price">—</strong>
+          <div id="priceChange" class="price-change neutral">—</div>
+        </div>
+        <div class="freshness">
+          <span>行情新鲜度</span>
+          <strong id="freshnessText">未启动</strong>
+          <div class="freshness-track"><i id="freshnessBar"></i></div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="market-column">
+          <article class="glass card market-card">
+            <div class="card-heading">
+              <div><p class="eyebrow">LIVE MARKET</p><h2>实时盘口</h2></div>
+              <span id="feedBadge" class="soft-badge">OFFLINE</span>
+            </div>
+            <div class="market-metrics">
+              <div><span>今开</span><strong id="openPrice">—</strong></div>
+              <div><span>最高</span><strong id="highPrice">—</strong></div>
+              <div><span>最低</span><strong id="lowPrice">—</strong></div>
+              <div><span>成交量</span><strong id="volume">—</strong></div>
+            </div>
+            <div class="book">
+              <div class="book-header"><span>买盘 / BID</span><span>价格</span><span>数量</span></div>
+              <div id="bidBook" class="book-side bids"></div>
+              <div class="book-mid"><span>SPREAD</span><strong id="spread">—</strong></div>
+              <div id="askBook" class="book-side asks"></div>
+            </div>
+          </article>
+
+          <article class="glass card tape-card">
+            <div class="card-heading compact"><div><p class="eyebrow">TIME & SALES</p><h2>最新成交</h2></div></div>
+            <div class="tape-head"><span>时间</span><span>价格</span><span>数量</span><span>方向</span></div>
+            <div id="tape" class="tape"></div>
+          </article>
+
+          <article class="glass card positions-card">
+            <div class="card-heading compact">
+              <div><p class="eyebrow">ACCOUNT POSITIONS</p><h2>持仓</h2></div>
+              <span id="positionsStatus" class="soft-badge">未连接</span>
+            </div>
+            <div class="positions-table" role="table" aria-label="账户持仓">
+              <div class="positions-head positions-grid" role="row">
+                <span role="columnheader">股票代码</span><span role="columnheader">股票名称</span><span role="columnheader">当前单价</span><span role="columnheader">股数</span><span role="columnheader">每股成本价</span><span role="columnheader">未实现盈亏</span>
+              </div>
+              <div id="positionsBody" class="positions-body" role="rowgroup">
+                <div id="positionsState" class="positions-state" role="status" aria-live="polite">账户未连接</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="glass card order-card">
+          <div class="card-heading">
+            <div><p class="eyebrow">DIRECT ORDER</p><h2>一击下单</h2></div>
+            <span class="live-warning">单击直发</span>
+          </div>
+
+          <div class="segmented" role="group" aria-label="订单类型">
+            <button class="segment active" data-order-type="MARKET">市价单</button>
+            <button class="segment" data-order-type="LIMIT">限价单</button>
+          </div>
+
+          <label class="field">
+            <span>数量 <em>整股</em></span>
+            <input id="quantityInput" type="number" inputmode="numeric" min="1" step="1" value="1" />
+          </label>
+          <div id="quantityPresets" class="presets">
+            <button data-qty="1">1</button><button data-qty="10">10</button><button data-qty="25">25</button><button data-qty="100">100</button>
+          </div>
+
+          <label id="limitField" class="field hidden">
+            <span>限价 <em>USD</em></span>
+            <input id="limitInput" type="number" inputmode="decimal" min="0.0001" step="0.01" placeholder="0.00" />
+          </label>
+
+          <div class="order-preview">
+            <div><span>标的</span><strong id="previewSymbol">AAPL</strong></div>
+            <div><span>时段</span><strong>CORE · DAY</strong></div>
+            <div><span>预计金额</span><strong id="estimatedValue">—</strong></div>
+            <div><span>服务器上限</span><strong id="riskLimits">—</strong></div>
+          </div>
+
+          <div id="riskSummary" class="risk-summary" hidden>
+            <div><span>账户</span><strong id="riskAccount">—</strong></div>
+            <div><span>美元现金余额</span><strong id="usdCashBalance">—</strong></div>
+            <div><span>美元购买力</span><strong id="buyingPower">—</strong></div>
+            <div><span>可卖持仓</span><strong id="availablePosition">—</strong></div>
+          </div>
+
+          <div id="liveGate" class="live-gate"><div class="live-toggle-row"><div><strong>服务器交易权限</strong><small id="liveToggleHint">只读 · 等待服务器确认</small></div><span id="serverGate" class="soft-badge">UNKNOWN</span></div></div>
+          <div id="controllerNotice" class="controller-notice" hidden>当前为只读标签页，请在控制标签页操作。</div>
+
+          <div id="tradeBlock" class="trade-block"><span>!</span><p>连接服务器并选择授权账户</p></div>
+
+          <div class="trade-actions">
+            <button id="buyButton" class="trade-button buy" disabled><small>BUY · 单击直发</small><strong>买入 AAPL</strong></button>
+            <button id="sellButton" class="trade-button sell" disabled><small>SELL · 仅持仓</small><strong>卖出 AAPL</strong></button>
+          </div>
+          <p id="marketWarning" class="order-footnote market-warning">裸市价单：成交价可能因市场波动和滑点高于预计金额；服务端只做估算金额门禁。</p>
+          <p class="order-footnote">无二次确认。服务端仍会检查行情时效、数量、金额与可卖持仓。</p>
+        </aside>
+      </section>
+
+      <section class="glass card orders-card">
+        <div class="card-heading compact">
+          <div><p class="eyebrow">ORDER ACTIVITY</p><h2>最近订单</h2></div>
+          <span id="orderCount" class="soft-badge">0 ORDERS</span>
+        </div>
+        <div class="order-table">
+          <div class="order-row table-head"><span>时间</span><span>订单</span><span>数量</span><span>价格</span><span>状态</span><span></span></div>
+          <div id="orders"></div>
+        </div>
+      </section>
+      <section class="glass card"><div class="card-heading"><h2>待确认请求</h2><button id="nextPage" class="button">下一页订单</button></div><div id="pending"></div></section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <div id="settingsDialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden><section class="dialog-card glass">
+      <div class="dialog-heading"><div><p class="eyebrow">FINFUSION SETUP</p><h2 id="settingsTitle">服务器与客户端密钥</h2></div><button class="dialog-close" id="settingsClose">×</button></div>
+      <p class="dialog-lead">公钥由管理员登记。私钥仅在 Windows 当前用户的安全存储中保存。</p>
+      <label class="dialog-field"><span>HTTPS 服务器地址</span><input id="originInput" placeholder="https://api.example.com" /></label>
+      <label class="dialog-field"><span>clientId</span><input id="clientIdInput" /></label>
+      <p id="keyStatus" class="dialog-lead">未配置密钥</p><div class="dialog-actions"><button class="button" id="generateKey">生成密钥</button><button class="button" id="importKey">导入私钥</button><button class="button" id="exportKey">导出公钥</button></div>
+      <div class="dialog-actions"><button class="button button-primary" id="saveSettings">保存配置</button></div>
+    </section></div>
+    <div id="detailDialog" class="dialog-backdrop" role="dialog" aria-modal="true" hidden><section class="dialog-card glass"><div class="dialog-heading"><h2>订单详情</h2><button id="detailClose" class="dialog-close">×</button></div><pre id="detailText"></pre><label class="dialog-field"><span>新限价</span><input id="replacePrice" type="number" min="0.0001" step="0.01" /></label><div class="dialog-actions"><button id="replaceOrder" class="button">修改限价</button><button id="cancelOrder" class="button danger-button">撤单</button></div></section></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+[Unit]
+Description=Finfusion 1.0 local health every 30 seconds
+
+[Timer]
+OnBootSec=60
+OnUnitInactiveSec=30
+Unit=finfusion-health-1.0.service
+
+[Install]
+WantedBy=timers.target

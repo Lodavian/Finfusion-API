@@ -57,10 +57,28 @@ async def test_infrastructure_gate_blocks_submit_and_replace_but_not_cancel():
     assert gateway.calls == ["place", "cancel"]
 
 
-def test_state_monitor_is_fail_closed_for_stale_and_malformed_files(tmp_path):
+def test_state_monitor_is_fail_closed_for_stale_and_malformed_files(tmp_path, monkeypatch):
     state = tmp_path / "state.json"
     state.write_text(json.dumps({"nodeActive": True, "tunnelHealthy": True, "generation": 1, "updatedAt": time.time()}), encoding="utf-8")
-    if os.name != "nt": state.chmod(0o600)
+    if os.name != "nt":
+        state.chmod(0o600)
+        # A normal Linux user cannot create the root-owned production fixture.
+        # First verify that the real non-root fixture is rejected; then simulate
+        # only this fixture's ownership for the stale/malformed unit checks.
+        if os.getuid() != 0:
+            assert not NodeStateFileMonitor(InfrastructureGate(), state, stale_seconds=2).load_once().mutation_ready
+        path_type = type(state)
+        original_lstat = path_type.lstat
+
+        def fixture_lstat(path, *args, **kwargs):
+            info = original_lstat(path, *args, **kwargs)
+            if path in {state.parent, state}:
+                fields = list(info)
+                fields[4] = 0  # st_uid; production filesystem ownership is unchanged.
+                return os.stat_result(fields)
+            return info
+
+        monkeypatch.setattr(path_type, "lstat", fixture_lstat)
     gate = InfrastructureGate()
     monitor = NodeStateFileMonitor(gate, state, stale_seconds=2)
     assert monitor.load_once().mutation_ready

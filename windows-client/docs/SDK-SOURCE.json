@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/Lodavian/Finfusion-API",
+  "commit": "f581d3b7fc7ad42dbe07c234b48771c0fda778d8",
+  "sha256": {
+    "client.py": "7d1b524f1d91da4c20f38c97d4a2f619275399f6347c32a3a7b3000c806ec251",
+    "keygen.py": "bc760942f5f4a549583fbfa9b2b064995547d80132990388f76532e26c81bef0",
+    "__init__.py": "df782fc07d08f6690cf5f4a5126085771d7ae6594f900bdf0800c27d8cad0721"
+  },
+  "mode": "ordinary source copies, unchanged; runtime never reads source repository"
+}

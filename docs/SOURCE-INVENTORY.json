@@ -1,0 +1,1431 @@
+{
+  "baseline": "f581d3b7fc7ad42dbe07c234b48771c0fda778d8",
+  "date": "2026-10-23",
+  "scope": "staged source files; this manifest excludes itself",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "gitBlob": "2335138c6dc25acbc6c31bfa72a2f304f3913904"
+    },
+    {
+      "path": ".gitignore",
+      "gitBlob": "43e0022e13e8cb974ab6c5a8e498f7389bd3ca92"
+    },
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "e910c9026874e8557dae65c966a871c11347b79d"
+    },
+    {
+      "path": "README.md",
+      "gitBlob": "19c3e4a8063e0ab542eff32423496219530d7d1d"
+    },
+    {
+      "path": "client_sdk/__init__.py",
+      "gitBlob": "182e267fd59ee748a0390622947d1298abe14d7c"
+    },
+    {
+      "path": "client_sdk/client.py",
+      "gitBlob": "c3bdd7a35dcd9ceaa0126dbb7b3ef48e6a3f470f"
+    },
+    {
+      "path": "client_sdk/keygen.py",
+      "gitBlob": "f26e906e40cb5c5256207fcea64a681fc6069d55"
+    },
+    {
+      "path": "deploy/windows-node/README.md",
+      "gitBlob": "0e562f769b0f7531fd33757173b033dd167eb6c7"
+    },
+    {
+      "path": "deploy/windows-node/config.example.json",
+      "gitBlob": "1855e820acc1dd45626646e57c68093a694d4a86"
+    },
+    {
+      "path": "deploy/windows-node/dependencies.lock.json",
+      "gitBlob": "bb384f3e05faea3a38e503f439f3ea3c6951cbfb"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/backup_vault.py",
+      "gitBlob": "6deb38b4c5138b64707c90532eade4dc22ce4c9b"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/casdoor-start",
+      "gitBlob": "de3bf275b8af6b9b6bda430d8739aafda1d98477"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/install-release",
+      "gitBlob": "4ad24a5e90bcfe5af82a96bee27fb9f1621c40bc"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-backup",
+      "gitBlob": "489d8ea21b0be7e364488cee70a8eab64a93e7a6"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-control",
+      "gitBlob": "d577db5b7e8746d880613bef9d6c7735f0d9249d"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-doctor",
+      "gitBlob": "af48ad5df85fb873ab00cd7d21095f06812a91b0"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-migrate",
+      "gitBlob": "55cd540ba6080942dcee1617f4e2e22e89fe6e9e"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-restore",
+      "gitBlob": "133af53ed0b564dd190689d8d42be229f6a6c652"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node-update",
+      "gitBlob": "c3be54440035fe0180046b7fce1c3581549b2b63"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node_configure.py",
+      "gitBlob": "697d5029455bf06358a43c7f6ab36d2325d56ac5"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/node_state.py",
+      "gitBlob": "7f1aafda309be65fada2fceee4a44a380be62308"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/tunnel_health.py",
+      "gitBlob": "9e69c86c24027f2462c43b549e32657725d4e421"
+    },
+    {
+      "path": "deploy/windows-node/linux/bin/vault.py",
+      "gitBlob": "8b2588022190d46923b36e419f409a44ce439159"
+    },
+    {
+      "path": "deploy/windows-node/linux/install.sh",
+      "gitBlob": "81ec52193d55ee2b564ee12266bddd331c2d1591"
+    },
+    {
+      "path": "deploy/windows-node/linux/server.env.template",
+      "gitBlob": "7921fee106ace8718dcbc9ebc4678277056d972d"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/casdoor.service",
+      "gitBlob": "2a93af943fa8cb6791a287ce7a0bf86dd6b79252"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/cloudflared.service",
+      "gitBlob": "7f4fdefae75faf3b46d9d432824f4dad66e81b35"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/finfusion-node-default-off.service",
+      "gitBlob": "6c26a05e9fedcc558f3ce102a7b558afbe7faa18"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/finfusion-tunnel-health.service",
+      "gitBlob": "695c89fbcc1f51b776429829f269e2be2624fd56"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/finfusion-tunnel-health.timer",
+      "gitBlob": "8e849ab6493cc9b983dc0faba38e5bcdf41e9480"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/finfusion-vault.service",
+      "gitBlob": "ee94c71dc48a8f31c7f87eb7bab712b6c95e8d88"
+    },
+    {
+      "path": "deploy/windows-node/linux/systemd/finfusion.service",
+      "gitBlob": "356d39f0da929b92018e2b6d72e1b94b57fcc531"
+    },
+    {
+      "path": "deploy/windows-node/python-requirements.in",
+      "gitBlob": "6833bf4641b9bef1a6887e199157365c215eac1b"
+    },
+    {
+      "path": "deploy/windows-node/windows/Finfusion.Control/Finfusion.Control.csproj",
+      "gitBlob": "8bb5807f1ce9a27058ae1b418f1bb854175f26d9"
+    },
+    {
+      "path": "deploy/windows-node/windows/Finfusion.Control/Program.cs",
+      "gitBlob": "aa02efaaca46e6bd2eeed86e9f4bc64c70f57488"
+    },
+    {
+      "path": "deploy/windows-node/windows/Finfusion.NodeHost/Finfusion.NodeHost.csproj",
+      "gitBlob": "0e97a067b36ac24af9370d99379fd96f85e782fb"
+    },
+    {
+      "path": "deploy/windows-node/windows/Finfusion.NodeHost/Program.cs",
+      "gitBlob": "d3e6c0326736598fe2c55fe06a5753963615259d"
+    },
+    {
+      "path": "deploy/windows-node/windows/Install-FinfusionNode.ps1",
+      "gitBlob": "2b3362210b97907aa5d508355194eb15397b2123"
+    },
+    {
+      "path": "deploy/windows-node/windows/Invoke-WslBootstrap.ps1",
+      "gitBlob": "9067edfd94bff5d5c8c6c0c20df6380d63c4f6c0"
+    },
+    {
+      "path": "deploy/windows-node/windows/Uninstall-FinfusionNode.ps1",
+      "gitBlob": "ac997641b0fe0edf4abcc7866e5c1bf3ace696c0"
+    },
+    {
+      "path": "deployment-tools/README.md",
+      "gitBlob": "686b97318eac9a6fd181dfffbc1fe0f7d992ec20"
+    },
+    {
+      "path": "deployment-tools/casdoor-init/README.md",
+      "gitBlob": "dc7de70a4d2281f8d53c6f587a6b74c98e304667"
+    },
+    {
+      "path": "deployment-tools/casdoor-init/Show-Casdoor-Login.ps1",
+      "gitBlob": "a46d641bd00b6a3fd56bdbdb643c41d104547dd6"
+    },
+    {
+      "path": "deployment-tools/casdoor-init/finalize_local.py",
+      "gitBlob": "16415897c97acb160c5c51b3ac4505094c6046a0"
+    },
+    {
+      "path": "deployment-tools/casdoor-init/initialize_local.py",
+      "gitBlob": "b7e1fc70e0e8c1d2c3bb8884503c67f457cb5cce"
+    },
+    {
+      "path": "deployment-tools/casdoor-init/verify_local.py",
+      "gitBlob": "260ef70ccd5cf2c0cc6a09c8dd04b771371465bd"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/LIVE-ACCEPTANCE.md",
+      "gitBlob": "c5612540a349b6bebf5de05b15520c5d696eb829"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/Open-Live-Admin.ps1",
+      "gitBlob": "611ae98e6590d5dc755634af486929e430b09c72"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/STATUS.md",
+      "gitBlob": "84c60719101c68a1dc0f8b678302a6aeef72687b"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/Set-Sandbox-Credentials.ps1",
+      "gitBlob": "8aefe3aedef003da785563f27b9cfedfa3b4ae1c"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/activate_live.py",
+      "gitBlob": "b359ecebe59ffcedaea0659d2d5e8f9b89989e92"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/bootstrap_live_token.py",
+      "gitBlob": "be001f096df71519457171b6e490af38b29218d1"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/deploy_live_market.py",
+      "gitBlob": "7d039a7aec96a75ce05ba713414f1ec9566d0e5f"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/export_expected_views.py",
+      "gitBlob": "3a5860178b15367c1d100f0d6040ea5e75311402"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/finalize_live.py",
+      "gitBlob": "aeebd0ce4c3168d1b8cdce07a4f29aae0d2efb56"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/fix_browser_oauth.py",
+      "gitBlob": "b3b59fd2afb74d5a3ae1e9bc18a0e4c66767ffdd"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/import_credentials.py",
+      "gitBlob": "94c8093d82676c9c0746b2503fc6e575b0cd2c70"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/inspect_live_views.py",
+      "gitBlob": "31cdfaeb6a4775ee56edac0e63c36336e74120df"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/live_readonly_server.py",
+      "gitBlob": "619f55d2f82bcfa7965b70c288b445c1dcc4c0f9"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/manage_live_acceptance.py",
+      "gitBlob": "4ea847dfd2b223d91889ca6ca591578dfac63eec"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/preflight_broker.py",
+      "gitBlob": "b90930a2ee3c17885a78ea21de93ed620327c6ee"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/preflight_live.py",
+      "gitBlob": "59c3a2295f3a7f79c8ed7a877b6a129d39526648"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/prepare_live.py",
+      "gitBlob": "7555f09186b8aef2f7a94139570243d86ef382ff"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/prepare_sandbox.py",
+      "gitBlob": "fac04a178e97757a43e0ef2b1c8305323aa3e050"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/prepare_windows_live.py",
+      "gitBlob": "05f71c4026a58ceddfa978ecd852da4ff21c20f8"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/publish_market_fix.py",
+      "gitBlob": "d224855136bcc9c0f808b01affb779e55831cc73"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/retry_live_market.py",
+      "gitBlob": "be9988fce919932f1506a3c62c9b5a3f37ec7c92"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/test_readonly_perimeter.py",
+      "gitBlob": "222abf3829391a92b21fb01528039444262f96f9"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/unseal_live.py",
+      "gitBlob": "1c830f19f58f6049dcbe949cff7975cd9cd18fb7"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/unseal_sandbox.py",
+      "gitBlob": "146a1709b1bb8bd22818ca36712ad9f5fe5f1a8a"
+    },
+    {
+      "path": "deployment-tools/formal-deployment/verify_windows_live.py",
+      "gitBlob": "96ff2fb451aa70a3abbe063f97991a025bcfe436"
+    },
+    {
+      "path": "docs/API.md",
+      "gitBlob": "ed2b7c3a53f1444496d7f4724390684a75e85233"
+    },
+    {
+      "path": "docs/CURRENT-STATUS.md",
+      "gitBlob": "83637266f43928ad9c7b47b9bd182bc43e2c2604"
+    },
+    {
+      "path": "docs/DELIVERY.md",
+      "gitBlob": "6609bbf1b2e2d4f75b254a66077c44a53083e23b"
+    },
+    {
+      "path": "docs/DEPLOYMENT.md",
+      "gitBlob": "434ffd8503008996ecae4842a0c9f3b8a3692283"
+    },
+    {
+      "path": "docs/DEVELOPMENT-HANDOFF.md",
+      "gitBlob": "6772470937f09d11c794193a39477c09a65a8da7"
+    },
+    {
+      "path": "docs/MARKET.md",
+      "gitBlob": "a19b9b13708535ba42e343c374ddc00b2dedbc73"
+    },
+    {
+      "path": "docs/NEW_COMPUTER_DEPLOYMENT.md",
+      "gitBlob": "b9fe1e312f603269b1a2e20bed5b7bbb422b1294"
+    },
+    {
+      "path": "docs/PUBLICATION-AUDIT-2026-10-23.md",
+      "gitBlob": "609d76cd98a65f33706acf61ee478c41b6e584e7"
+    },
+    {
+      "path": "docs/README-2026-10-04.md",
+      "gitBlob": "4d970de3e89b98ebc1319d94e77bdd3913eafb47"
+    },
+    {
+      "path": "docs/SERVER-AUTOSTART-2026-10-13.md",
+      "gitBlob": "8609a42c5f03d685bce48fc704a249ed28be512f"
+    },
+    {
+      "path": "docs/SERVER-HOST-RUNBOOK-2026-10-12.md",
+      "gitBlob": "09bbcbcb17f276facd38e359c3619d7bdadfc332"
+    },
+    {
+      "path": "docs/openapi.json",
+      "gitBlob": "a7d862a92a07c9bcb1fa44252ffdd8f3e10eb264"
+    },
+    {
+      "path": "docs/server-deployment-handoff.md",
+      "gitBlob": "14e79453b10c5be1ad63c6a5588df13936fdaa73"
+    },
+    {
+      "path": "docs/server-migration-audit.md",
+      "gitBlob": "8f1802dbb6de185a4f5cd0dce9bb3a75ede21b56"
+    },
+    {
+      "path": "docs/source-manifest.json",
+      "gitBlob": "a409e1178b1d0562ada89a88435b4d874f772ebe"
+    },
+    {
+      "path": "docs/verification.json",
+      "gitBlob": "e6ccf67387ce53540315b5139d6630476d0bd59e"
+    },
+    {
+      "path": "examples/query_accounts.py",
+      "gitBlob": "51528c5311b0408e341a73f627648c59a0f291db"
+    },
+    {
+      "path": "finfusion/__init__.py",
+      "gitBlob": "29d25f23b3fc9d4de8b584b6f8ef5b8bcf93e03c"
+    },
+    {
+      "path": "finfusion/account_view.py",
+      "gitBlob": "348e54b4389a88785434f24d9e5a43aac94a1b4e"
+    },
+    {
+      "path": "finfusion/admin.py",
+      "gitBlob": "5f781894ccff9b0eb4ce18d37f3f23988627d909"
+    },
+    {
+      "path": "finfusion/api.py",
+      "gitBlob": "0ddc1055b8932da8ab1a28f29d852b0482ff3ab9"
+    },
+    {
+      "path": "finfusion/casdoor.py",
+      "gitBlob": "8f756d79a6772c54b8447fa8c4b7a5bd1fd69e31"
+    },
+    {
+      "path": "finfusion/controls.py",
+      "gitBlob": "bf6004adae9f7c1b2846971daffa567defd13bb4"
+    },
+    {
+      "path": "finfusion/deployment.py",
+      "gitBlob": "c3f7af5a465bc651898959dee6b1fd1355f897e7"
+    },
+    {
+      "path": "finfusion/environment.py",
+      "gitBlob": "7b537072ffdd218074cdd9e5d35d3dbeec8f4a32"
+    },
+    {
+      "path": "finfusion/errors.py",
+      "gitBlob": "27819f30be42b3656f27f60b0b39950dbe9154f2"
+    },
+    {
+      "path": "finfusion/gateway.py",
+      "gitBlob": "f4e75eba280f960232aa28a3ff3e51e1ab46e792"
+    },
+    {
+      "path": "finfusion/infrastructure.py",
+      "gitBlob": "fa740f476fc41ae38369461b0a697308662bedfc"
+    },
+    {
+      "path": "finfusion/main.py",
+      "gitBlob": "830408c8645ce14cd953063ce073dd41b0cdd3f0"
+    },
+    {
+      "path": "finfusion/market.py",
+      "gitBlob": "cead56ca7825472568502f2bd76654f9870dd471"
+    },
+    {
+      "path": "finfusion/migrations/001_initial.sql",
+      "gitBlob": "1ce936d8c0bba76387b963353dc6ed3b50250813"
+    },
+    {
+      "path": "finfusion/migrations/002_clients.sql",
+      "gitBlob": "21bcc8ae261b088d6ef3fa553cb3c0614c4a7e98"
+    },
+    {
+      "path": "finfusion/migrations/003_pending_actions.sql",
+      "gitBlob": "d35b48ba498a1fe0d3d67b445a3f89a759d38b5f"
+    },
+    {
+      "path": "finfusion/models.py",
+      "gitBlob": "872db0e2cd5760c6052810801a397dd593a9559c"
+    },
+    {
+      "path": "finfusion/postgres.py",
+      "gitBlob": "951d6ca8af1ab15962efb309de5a9ff8da9e93b9"
+    },
+    {
+      "path": "finfusion/security.py",
+      "gitBlob": "67ba60d28ffb7c121ff1e59fefe91c1240d57b59"
+    },
+    {
+      "path": "finfusion/service.py",
+      "gitBlob": "8ab88687c4c8006d032af4dda86d5b5b5f8c60b1"
+    },
+    {
+      "path": "finfusion/store.py",
+      "gitBlob": "b02b4b4f6b01ec43336be1f22b8887c2f63c4696"
+    },
+    {
+      "path": "finfusion_common/__init__.py",
+      "gitBlob": "3a905c16777fdf2e5abe70eb09c685f6f25f2c03"
+    },
+    {
+      "path": "finfusion_common/errors.py",
+      "gitBlob": "7bd01764b21ed43c685138b24ba127c99606b8ca"
+    },
+    {
+      "path": "finfusion_common/masking.py",
+      "gitBlob": "574741ff686c951f2de99983cc3a982cf656d906"
+    },
+    {
+      "path": "finfusion_common/statuses.py",
+      "gitBlob": "25939e1442968eae7394ecce6efbb8909be82852"
+    },
+    {
+      "path": "finfusion_common/utils.py",
+      "gitBlob": "d4487a72142cd94fa2501dd6d7802c533e2308d3"
+    },
+    {
+      "path": "management-preview/Open-Admin.cmd",
+      "gitBlob": "ff1b381537f9a2ee47d0c315ef87a0e712526584"
+    },
+    {
+      "path": "management-preview/Open-Admin.ps1",
+      "gitBlob": "d9acff74922e7015763c9173ad000a27a60d2f50"
+    },
+    {
+      "path": "management-preview/README.md",
+      "gitBlob": "bda1ca826ded2e41df6edb81b12acbcf309525a0"
+    },
+    {
+      "path": "management-preview/Stop-Preview.ps1",
+      "gitBlob": "dbdc4fce6300b183e13d5473682a0bbcc16d1013"
+    },
+    {
+      "path": "management-preview/design-qa.md",
+      "gitBlob": "d61e5a62ff828e4a048d1c7f1702c845534ddea1"
+    },
+    {
+      "path": "management-preview/preview_server.py",
+      "gitBlob": "719027c5a20c406aca0077609ffc6a0e77ffe92c"
+    },
+    {
+      "path": "ops/backup.py",
+      "gitBlob": "f96480ea8490e1fd06413dc1fa487001bc74db46"
+    },
+    {
+      "path": "ops/db_helpers.py",
+      "gitBlob": "b016f1204f06a1a03f84bc1aed4734e0021a4dca"
+    },
+    {
+      "path": "ops/deploy_candidate.py",
+      "gitBlob": "bc5a857de4fbf135f38b5a7fb6b79191e6e9455c"
+    },
+    {
+      "path": "ops/finfusion-backup-1.0.service",
+      "gitBlob": "1e51c3e2fe22eee46cc321d85869cb34b560a184"
+    },
+    {
+      "path": "ops/finfusion-backup-1.0.timer",
+      "gitBlob": "64bdf179c855f1f81da36ab03cc816a70b4260c3"
+    },
+    {
+      "path": "ops/finfusion-health-1.0.service",
+      "gitBlob": "b6a39bbfe707422843b8956d91d619c3c28242a5"
+    },
+    {
+      "path": "ops/finfusion-health-1.0.timer",
+      "gitBlob": "1a03869721ba75130a875ae1d790cbe6171a6380"
+    },
+    {
+      "path": "ops/health.py",
+      "gitBlob": "0d457ef78e21f99f1ffac267aa929714bc682306"
+    },
+    {
+      "path": "ops/test_candidate.py",
+      "gitBlob": "7b79ff0930674627dc650c764f4455336d10fb57"
+    },
+    {
+      "path": "ops/verify_restore.py",
+      "gitBlob": "d7796a3e4632f4a899e7841caf5675583cb60405"
+    },
+    {
+      "path": "ops/windows-host/README.md",
+      "gitBlob": "f8216d34c86016051282224286cb3eaf74743684"
+    },
+    {
+      "path": "ops/windows-host/apply-host-policy.ps1",
+      "gitBlob": "f00074ecac05f5e00ce5a21c45fd4cffb17be9ef"
+    },
+    {
+      "path": "ops/windows-host/check-boot-evidence.ps1",
+      "gitBlob": "dc595d32cf0b0b42866caef7d183166068309056"
+    },
+    {
+      "path": "ops/windows-host/clock_probe.py",
+      "gitBlob": "5cabe593375ee731f2feff1900d8c6242d0636bc"
+    },
+    {
+      "path": "ops/windows-host/collect-host-evidence.ps1",
+      "gitBlob": "ef2bb8f433030302d8e24c1c51050c710a3be4a5"
+    },
+    {
+      "path": "ops/windows-host/finfusion-runtime.conf",
+      "gitBlob": "70c2752026e2c19a8634339aeaec0002f0be7101"
+    },
+    {
+      "path": "ops/windows-host/host_ready_guard.py",
+      "gitBlob": "143d583066c4907e218630ab3f45a95ebd611995"
+    },
+    {
+      "path": "ops/windows-host/keep-wsl-running.ps1",
+      "gitBlob": "de648c4060f2b9ca51605dd4af8f029326b30a6c"
+    },
+    {
+      "path": "ops/windows-host/probe-public.ps1",
+      "gitBlob": "064acae9396a183f6bad716d1932b9a001ecc300"
+    },
+    {
+      "path": "ops/windows-host/repair_linux_startup.py",
+      "gitBlob": "78ad6330caca15a8f985badaf1d70d32777db029"
+    },
+    {
+      "path": "ops/windows-host/restore-host-policy.ps1",
+      "gitBlob": "2e9447ff9cdb7b42d6d277da1e6e5f4dc6bc4160"
+    },
+    {
+      "path": "ops/windows-host/test_clock_probe.py",
+      "gitBlob": "854079972e33cd6854b3075754043cc22a4bbd88"
+    },
+    {
+      "path": "ops/windows-host/test_ready_guard.py",
+      "gitBlob": "58386a40304ff792e3e921f105dada98d943bbff"
+    },
+    {
+      "path": "packaging/FinfusionServer.iss",
+      "gitBlob": "c043171f17eb1a59d0d07fdbf6cd5194cfc4fb9a"
+    },
+    {
+      "path": "packaging/LICENSES/WINDOWS_NODE_THIRD_PARTY.md",
+      "gitBlob": "7927741f700e1befa89233ac28cb9ac1fc159bb9"
+    },
+    {
+      "path": "packaging/VERSION",
+      "gitBlob": "6e8bf73aa550d4c57f6f35830f1bcdc7a4a62f38"
+    },
+    {
+      "path": "packaging/assets/Finfusion.ico",
+      "gitBlob": "2e4fbfba8dc4e0ba704ea158997f6ec8cdcdcbbd"
+    },
+    {
+      "path": "packaging/build_debian12_wsl_rootfs.sh",
+      "gitBlob": "899dcf409eccd9f8efc775a01db1ede20c4de132"
+    },
+    {
+      "path": "packaging/build_windows_node.ps1",
+      "gitBlob": "01ad4db45737a4c4d3f34af918a9b17e13c22305"
+    },
+    {
+      "path": "packaging/build_windows_node_dev.ps1",
+      "gitBlob": "2d704b997e0803391ca2f38930f84b5ff01cf3ec"
+    },
+    {
+      "path": "packaging/extract_casdoor_release.py",
+      "gitBlob": "a37cfff0b6eead46167add44ffe58a498acfa5e7"
+    },
+    {
+      "path": "packaging/server-requirements.lock",
+      "gitBlob": "6833bf4641b9bef1a6887e199157365c215eac1b"
+    },
+    {
+      "path": "packaging/ui-hashes.json",
+      "gitBlob": "d522807641decfe6d882a46617ed166b4a5b4c4c"
+    },
+    {
+      "path": "pytest.ini",
+      "gitBlob": "78c5011f9d9ca225df04580db45e866a771e0c66"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "gitBlob": "a6df0409c172920ac2758b3d9baedf738918c181"
+    },
+    {
+      "path": "requirements.lock",
+      "gitBlob": "d306726e91fa8754537e7f5af9fe3378e20ff58d"
+    },
+    {
+      "path": "requirements.txt",
+      "gitBlob": "23f78af697c6b40dc0026b8cd46375b6d5165d63"
+    },
+    {
+      "path": "run-tests.ps1",
+      "gitBlob": "2d890ef4076ea0715dec91c59ce1614c9a880685"
+    },
+    {
+      "path": "server_admin/app.js",
+      "gitBlob": "fa53c1b637a041b2eca416bce5519adb87774eac"
+    },
+    {
+      "path": "server_admin/assets/LICENSE-bootstrap-icons.txt",
+      "gitBlob": "f95243911022df8e34bb8c73c87ef491ee1696cf"
+    },
+    {
+      "path": "server_admin/assets/arrow-clockwise.svg",
+      "gitBlob": "324d5af1a851f13a9a5016269aeebced643bf974"
+    },
+    {
+      "path": "server_admin/assets/arrow-up-right.svg",
+      "gitBlob": "7b3794b8ddcb40325b1f270f5155bf77aee6497e"
+    },
+    {
+      "path": "server_admin/assets/brand.png",
+      "gitBlob": "9185a11011305f407b010371cec07e6831caa11d"
+    },
+    {
+      "path": "server_admin/assets/grid.svg",
+      "gitBlob": "eebab73046dbae08bc19a31d06e8653ae9fc5101"
+    },
+    {
+      "path": "server_admin/assets/key.svg",
+      "gitBlob": "b0d1e16d100e180458b5a305378d9f0d871f4f10"
+    },
+    {
+      "path": "server_admin/assets/lock.svg",
+      "gitBlob": "9c730b79292501001ee90b40af92651df147bc4f"
+    },
+    {
+      "path": "server_admin/assets/people.svg",
+      "gitBlob": "341861a40dfb4440280df666db6a867a35df4bba"
+    },
+    {
+      "path": "server_admin/assets/person.svg",
+      "gitBlob": "98ea060fe2167ce724557e6537cf3c3fecb6f4b2"
+    },
+    {
+      "path": "server_admin/assets/sliders.svg",
+      "gitBlob": "c64a06cac5fb4a1ea4952e8deaf75d00d2cde8bb"
+    },
+    {
+      "path": "server_admin/assets/wallet.svg",
+      "gitBlob": "6c9d247db60127182405f3fc9b8960d0f29c56f1"
+    },
+    {
+      "path": "server_admin/index.html",
+      "gitBlob": "0ae71b7abc4664224973bc36ff8a0313271eee43"
+    },
+    {
+      "path": "server_admin/styles.css",
+      "gitBlob": "cffa4585f0741c8bf232d5b22f3c2dd22a8386ff"
+    },
+    {
+      "path": "setup-dev.ps1",
+      "gitBlob": "fa975a950ff7e7bc6ed66c5b2aa670f61a670985"
+    },
+    {
+      "path": "tests/__init__.py",
+      "gitBlob": "8b137891791fe96927ad78e64b0aad7bded08bdc"
+    },
+    {
+      "path": "tests/test_account_view.py",
+      "gitBlob": "643be7d07517ed537488ee3891b520532c6b564a"
+    },
+    {
+      "path": "tests/test_client_market.py",
+      "gitBlob": "b6d08ad23ad9b48423d5c50d240e71f312e45c10"
+    },
+    {
+      "path": "tests/test_gateway_projection.py",
+      "gitBlob": "4481ef84365854115278508731921f4a29c9863b"
+    },
+    {
+      "path": "tests/test_live_database.py",
+      "gitBlob": "02ecf934faba22a2d0bfb8f8a04d03ddf7d610ac"
+    },
+    {
+      "path": "tests/test_market_session_recovery.py",
+      "gitBlob": "5b168dccbd9f3e55b097995c1101581b59562b4e"
+    },
+    {
+      "path": "tests/test_operations.py",
+      "gitBlob": "7cbd2fa4b2114b3f8f9d662599d4795c95b5458b"
+    },
+    {
+      "path": "tests/test_postgres_integration.py",
+      "gitBlob": "bbffabbf5451879757decf969aa0693523dbc40c"
+    },
+    {
+      "path": "tests/test_program_api.py",
+      "gitBlob": "adb9d51578f28c2c135c3876ea69b43980fbdcf6"
+    },
+    {
+      "path": "tests/test_server_api.py",
+      "gitBlob": "8bee10c457b201b30af9c985da845abcfebf3daf"
+    },
+    {
+      "path": "tests/test_server_controls.py",
+      "gitBlob": "1dfde3ac19069b79e70e6b6a670a5fbdfb84d107"
+    },
+    {
+      "path": "tests/test_server_infrastructure.py",
+      "gitBlob": "f2b4e074d07c02986a3db3fb055dd7366dd409d5"
+    },
+    {
+      "path": "tests/test_version_one.py",
+      "gitBlob": "8556ed6e47500bad871de040aacf9f5430b88933"
+    },
+    {
+      "path": "tools/build_openapi.py",
+      "gitBlob": "6c6c590bbb34329f4b794d795075a0f34c47af2f"
+    },
+    {
+      "path": "tools/live_db_acceptance/README.md",
+      "gitBlob": "373098259778f20435c48ef64b013b7834f264c5"
+    },
+    {
+      "path": "tools/live_db_acceptance/acceptance.py",
+      "gitBlob": "b016f1204f06a1a03f84bc1aed4734e0021a4dca"
+    },
+    {
+      "path": "tools/live_db_acceptance/test_live_database.py",
+      "gitBlob": "02ecf934faba22a2d0bfb8f8a04d03ddf7d610ac"
+    },
+    {
+      "path": "tools/test_with_postgres.py",
+      "gitBlob": "7c81ddadbb04f5f2f95c4acb4d2815b168b6fe7a"
+    },
+    {
+      "path": "tools/verify_independence.py",
+      "gitBlob": "e541b55318ad4b94521cda014a5a20510c5e27b6"
+    },
+    {
+      "path": "windows-client/.gitignore",
+      "gitBlob": "5000390befa7a8459fd658295f43e3d11bf51f4e"
+    },
+    {
+      "path": "windows-client/BUILDING.md",
+      "gitBlob": "6a65efe54f240a290692dff19b110ad69c0383c4"
+    },
+    {
+      "path": "windows-client/Configure-Sandbox.cmd",
+      "gitBlob": "2a433169a927b565fd6de5e94f5bd27a4d30bd98"
+    },
+    {
+      "path": "windows-client/LICENSES/Pygments-LICENSE",
+      "gitBlob": "446a1a805c8a949579fb8a9799f2bec7777349dc"
+    },
+    {
+      "path": "windows-client/LICENSES/Pygments/LICENSE",
+      "gitBlob": "446a1a805c8a949579fb8a9799f2bec7777349dc"
+    },
+    {
+      "path": "windows-client/LICENSES/Python-LICENSE.txt",
+      "gitBlob": "ed06ecacd44ece17235ce73c0544e94179d3fc65"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohappyeyeballs-LICENSE",
+      "gitBlob": "f26bcf4d2de6eb136e31006ca3ab447d5e488adf"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohappyeyeballs/LICENSE",
+      "gitBlob": "f26bcf4d2de6eb136e31006ca3ab447d5e488adf"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohttp-LICENSE",
+      "gitBlob": "23682c03875844d5becc72ab477a3f9056b6d888"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohttp-LICENSE.txt",
+      "gitBlob": "0b2f7b0655f41276d418ca8302dbaec8b7e7e829"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohttp/LICENSE",
+      "gitBlob": "23682c03875844d5becc72ab477a3f9056b6d888"
+    },
+    {
+      "path": "windows-client/LICENSES/aiohttp/LICENSE.txt",
+      "gitBlob": "0b2f7b0655f41276d418ca8302dbaec8b7e7e829"
+    },
+    {
+      "path": "windows-client/LICENSES/aiosignal-LICENSE",
+      "gitBlob": "7082a2d5b9047bfc09589f387053e24ea490bc54"
+    },
+    {
+      "path": "windows-client/LICENSES/aiosignal/LICENSE",
+      "gitBlob": "7082a2d5b9047bfc09589f387053e24ea490bc54"
+    },
+    {
+      "path": "windows-client/LICENSES/altgraph-LICENSE",
+      "gitBlob": "6013a212b84af0b3e423b991188cb05098a47a86"
+    },
+    {
+      "path": "windows-client/LICENSES/altgraph/LICENSE",
+      "gitBlob": "6013a212b84af0b3e423b991188cb05098a47a86"
+    },
+    {
+      "path": "windows-client/LICENSES/attrs-LICENSE",
+      "gitBlob": "2bd6453d255e19b973f19b128596a8b6dd65b2c3"
+    },
+    {
+      "path": "windows-client/LICENSES/attrs/LICENSE",
+      "gitBlob": "2bd6453d255e19b973f19b128596a8b6dd65b2c3"
+    },
+    {
+      "path": "windows-client/LICENSES/bottle/LICENSE",
+      "gitBlob": "40859fc961a3017ffe1d0b4ef2bc9aa2b727a107"
+    },
+    {
+      "path": "windows-client/LICENSES/cffi-LICENSE",
+      "gitBlob": "0a1dbfb017c2e0afcaac48ba6750d32539335e41"
+    },
+    {
+      "path": "windows-client/LICENSES/cffi/LICENSE",
+      "gitBlob": "0a1dbfb017c2e0afcaac48ba6750d32539335e41"
+    },
+    {
+      "path": "windows-client/LICENSES/clr_loader/LICENSE",
+      "gitBlob": "7600334019e48f763dba39ae5e599c63c257b2e3"
+    },
+    {
+      "path": "windows-client/LICENSES/colorama-LICENSE.txt",
+      "gitBlob": "3105888ec149d10cad51c11d332779e94b548661"
+    },
+    {
+      "path": "windows-client/LICENSES/colorama/LICENSE.txt",
+      "gitBlob": "3105888ec149d10cad51c11d332779e94b548661"
+    },
+    {
+      "path": "windows-client/LICENSES/cryptography-LICENSE",
+      "gitBlob": "b11f379efe1504d235b4d2d42685ba5dc6af6e9f"
+    },
+    {
+      "path": "windows-client/LICENSES/cryptography-LICENSE.APACHE",
+      "gitBlob": "62589edd12a37dd28b6b6fed1e2d728ac9f05c8d"
+    },
+    {
+      "path": "windows-client/LICENSES/cryptography-LICENSE.BSD",
+      "gitBlob": "ec1a29d34d6e419411c75523408aca72f705345c"
+    },
+    {
+      "path": "windows-client/LICENSES/cryptography/LICENSE",
+      "gitBlob": "b11f379efe1504d235b4d2d42685ba5dc6af6e9f"
+    },
+    {
+      "path": "windows-client/LICENSES/frozenlist-LICENSE",
+      "gitBlob": "7082a2d5b9047bfc09589f387053e24ea490bc54"
+    },
+    {
+      "path": "windows-client/LICENSES/frozenlist/LICENSE",
+      "gitBlob": "7082a2d5b9047bfc09589f387053e24ea490bc54"
+    },
+    {
+      "path": "windows-client/LICENSES/idna-LICENSE.md",
+      "gitBlob": "f706835ab3a5dd709a6e1f57aee0a94ae1415df6"
+    },
+    {
+      "path": "windows-client/LICENSES/idna/LICENSE.md",
+      "gitBlob": "f706835ab3a5dd709a6e1f57aee0a94ae1415df6"
+    },
+    {
+      "path": "windows-client/LICENSES/iniconfig-LICENSE",
+      "gitBlob": "46f4b2846fd708ecb81b2d665434ce6379aa1101"
+    },
+    {
+      "path": "windows-client/LICENSES/iniconfig/LICENSE",
+      "gitBlob": "46f4b2846fd708ecb81b2d665434ce6379aa1101"
+    },
+    {
+      "path": "windows-client/LICENSES/multidict-LICENSE",
+      "gitBlob": "0b2f7b0655f41276d418ca8302dbaec8b7e7e829"
+    },
+    {
+      "path": "windows-client/LICENSES/multidict/LICENSE",
+      "gitBlob": "0b2f7b0655f41276d418ca8302dbaec8b7e7e829"
+    },
+    {
+      "path": "windows-client/LICENSES/packaging-LICENSE",
+      "gitBlob": "6f62d44e4ef733c0e713afcd2371fed7f2b3de67"
+    },
+    {
+      "path": "windows-client/LICENSES/packaging-LICENSE.APACHE",
+      "gitBlob": "f433b1a53f5b830a205fd2df78e2b34974656c7b"
+    },
+    {
+      "path": "windows-client/LICENSES/packaging-LICENSE.BSD",
+      "gitBlob": "42ce7b75c92fb01a3f6ed17eea363f756b7da582"
+    },
+    {
+      "path": "windows-client/LICENSES/packaging/LICENSE",
+      "gitBlob": "6f62d44e4ef733c0e713afcd2371fed7f2b3de67"
+    },
+    {
+      "path": "windows-client/LICENSES/pefile-LICENSE",
+      "gitBlob": "0866dd7f8f03bbe30364bfd18d41fcd53d74dadf"
+    },
+    {
+      "path": "windows-client/LICENSES/pefile/LICENSE",
+      "gitBlob": "0866dd7f8f03bbe30364bfd18d41fcd53d74dadf"
+    },
+    {
+      "path": "windows-client/LICENSES/pip-LICENSE.txt",
+      "gitBlob": "8e7b65eaf628360e6f32f4140fcdd7ec7c2b7077"
+    },
+    {
+      "path": "windows-client/LICENSES/pip/LICENSE.txt",
+      "gitBlob": "8e7b65eaf628360e6f32f4140fcdd7ec7c2b7077"
+    },
+    {
+      "path": "windows-client/LICENSES/pluggy-LICENSE",
+      "gitBlob": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c"
+    },
+    {
+      "path": "windows-client/LICENSES/pluggy/LICENSE",
+      "gitBlob": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c"
+    },
+    {
+      "path": "windows-client/LICENSES/propcache-LICENSE",
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    {
+      "path": "windows-client/LICENSES/propcache-NOTICE",
+      "gitBlob": "fa53b2b138df881c4c95239d0e4bede831b36ab5"
+    },
+    {
+      "path": "windows-client/LICENSES/propcache/LICENSE",
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    {
+      "path": "windows-client/LICENSES/pycparser-LICENSE",
+      "gitBlob": "bee14a47d2d83f2d4e3aca6d5a41e587ebf3c516"
+    },
+    {
+      "path": "windows-client/LICENSES/pycparser/LICENSE",
+      "gitBlob": "bee14a47d2d83f2d4e3aca6d5a41e587ebf3c516"
+    },
+    {
+      "path": "windows-client/LICENSES/pyinstaller-COPYING.txt",
+      "gitBlob": "d6caec5ab5778c36bd7e26d8d7a48eba1ac23dee"
+    },
+    {
+      "path": "windows-client/LICENSES/pyinstaller-hooks-contrib-LICENSE",
+      "gitBlob": "99bef9e7dc1e29e876057749037f409516eb0509"
+    },
+    {
+      "path": "windows-client/LICENSES/pyinstaller-hooks-contrib/LICENSE",
+      "gitBlob": "99bef9e7dc1e29e876057749037f409516eb0509"
+    },
+    {
+      "path": "windows-client/LICENSES/pyinstaller/COPYING.txt",
+      "gitBlob": "d6caec5ab5778c36bd7e26d8d7a48eba1ac23dee"
+    },
+    {
+      "path": "windows-client/LICENSES/pytest-LICENSE",
+      "gitBlob": "c3f1657fce94589bd1ec7cead810639047f3d359"
+    },
+    {
+      "path": "windows-client/LICENSES/pytest-asyncio-LICENSE",
+      "gitBlob": "5c304d1a4a7b439f767990bf1360d3283e45d0ee"
+    },
+    {
+      "path": "windows-client/LICENSES/pytest-asyncio/LICENSE",
+      "gitBlob": "5c304d1a4a7b439f767990bf1360d3283e45d0ee"
+    },
+    {
+      "path": "windows-client/LICENSES/pytest/LICENSE",
+      "gitBlob": "c3f1657fce94589bd1ec7cead810639047f3d359"
+    },
+    {
+      "path": "windows-client/LICENSES/pythonnet/LICENSE",
+      "gitBlob": "f3a638346b0d27d87ed640b8e45311f0d15989fb"
+    },
+    {
+      "path": "windows-client/LICENSES/pywebview/LICENSE",
+      "gitBlob": "fe2c82995b2af5b37651165e8fc266b2976046f9"
+    },
+    {
+      "path": "windows-client/LICENSES/pywin32-ctypes-LICENSE.txt",
+      "gitBlob": "d0ce125fb63c6222084fd0f4b1f5e5057cc73905"
+    },
+    {
+      "path": "windows-client/LICENSES/pywin32-ctypes/LICENSE.txt",
+      "gitBlob": "d0ce125fb63c6222084fd0f4b1f5e5057cc73905"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools-LICENSE",
+      "gitBlob": "f60bd572013c6abcb3a82ba9b50d84935de6394f"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools-LICENSE.APACHE",
+      "gitBlob": "f433b1a53f5b830a205fd2df78e2b34974656c7b"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools-LICENSE.BSD",
+      "gitBlob": "42ce7b75c92fb01a3f6ed17eea363f756b7da582"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools-LICENSE.txt",
+      "gitBlob": "a31470f14c5978d5fcc3bc173b8399b6c9a6443f"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools/LICENSE",
+      "gitBlob": "f60bd572013c6abcb3a82ba9b50d84935de6394f"
+    },
+    {
+      "path": "windows-client/LICENSES/setuptools/LICENSE.txt",
+      "gitBlob": "a31470f14c5978d5fcc3bc173b8399b6c9a6443f"
+    },
+    {
+      "path": "windows-client/LICENSES/typing_extensions-LICENSE",
+      "gitBlob": "f26bcf4d2de6eb136e31006ca3ab447d5e488adf"
+    },
+    {
+      "path": "windows-client/LICENSES/typing_extensions/LICENSE",
+      "gitBlob": "f26bcf4d2de6eb136e31006ca3ab447d5e488adf"
+    },
+    {
+      "path": "windows-client/LICENSES/yarl-LICENSE",
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    {
+      "path": "windows-client/LICENSES/yarl-NOTICE",
+      "gitBlob": "fa53b2b138df881c4c95239d0e4bede831b36ab5"
+    },
+    {
+      "path": "windows-client/LICENSES/yarl/LICENSE",
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    {
+      "path": "windows-client/Open-Casdoor.cmd",
+      "gitBlob": "7531a4c65c8cb2c4d464396697baa6496bb1f5e4"
+    },
+    {
+      "path": "windows-client/Open-Finfusion-Admin.cmd",
+      "gitBlob": "2ab702fd84ec7ef9deb72fc850349e24792265ef"
+    },
+    {
+      "path": "windows-client/Open-Finfusion-Client.cmd",
+      "gitBlob": "7a0aa5f53443714a61fa0d3e6b4773c9e8a1e1e9"
+    },
+    {
+      "path": "windows-client/README.md",
+      "gitBlob": "64993da01de5158f058431016233a02a99a43206"
+    },
+    {
+      "path": "windows-client/assets/FinfusionClient.ico",
+      "gitBlob": "2e4fbfba8dc4e0ba704ea158997f6ec8cdcdcbbd"
+    },
+    {
+      "path": "windows-client/assets/icon-master.png",
+      "gitBlob": "9185a11011305f407b010371cec07e6831caa11d"
+    },
+    {
+      "path": "windows-client/build-installer.ps1",
+      "gitBlob": "ed110408f07a6b1a7102788a329387aa9211d132"
+    },
+    {
+      "path": "windows-client/build-windows.ps1",
+      "gitBlob": "7306cc1fc556493508d496bc1e33a371b0d88344"
+    },
+    {
+      "path": "windows-client/client_sdk/__init__.py",
+      "gitBlob": "182e267fd59ee748a0390622947d1298abe14d7c"
+    },
+    {
+      "path": "windows-client/client_sdk/client.py",
+      "gitBlob": "c3bdd7a35dcd9ceaa0126dbb7b3ef48e6a3f470f"
+    },
+    {
+      "path": "windows-client/client_sdk/keygen.py",
+      "gitBlob": "f26e906e40cb5c5256207fcea64a681fc6069d55"
+    },
+    {
+      "path": "windows-client/docs/ACCEPTANCE-0.2.md",
+      "gitBlob": "76b1ed2cdff7fdb74f81fe1c1fb39c18729774e7"
+    },
+    {
+      "path": "windows-client/docs/ACCEPTANCE-1.0.md",
+      "gitBlob": "02e1b76be2d1f3fa73292badd3773205080c6cbb"
+    },
+    {
+      "path": "windows-client/docs/ACCEPTANCE.md",
+      "gitBlob": "72bb0878bc41901fb2ad4a57d94c7033d2d144cb"
+    },
+    {
+      "path": "windows-client/docs/API-Compatibility.md",
+      "gitBlob": "ca42f19dc98cc734db379068bc72c135c6fabba1"
+    },
+    {
+      "path": "windows-client/docs/CLIENT-UI-SERVER-HANDOFF-2026-10-09.md",
+      "gitBlob": "b1b4242102ebce03addb6c77d3aec272f3b6f5af"
+    },
+    {
+      "path": "windows-client/docs/DELIVERY-1.0.md",
+      "gitBlob": "606e5f919816e6ea28d564624f55f045afe7fdde"
+    },
+    {
+      "path": "windows-client/docs/DELIVERY.md",
+      "gitBlob": "c0d7ffdd3207f79310089087651e138b686edc3e"
+    },
+    {
+      "path": "windows-client/docs/DEPENDENCIES.json",
+      "gitBlob": "7db4d31616ac4ec8798a249d646e7460b8b2c887"
+    },
+    {
+      "path": "windows-client/docs/INTEGRATION-2026-10-09.md",
+      "gitBlob": "a6c8c7a7d4ade6bceb681162ddc6394420a5d5f9"
+    },
+    {
+      "path": "windows-client/docs/LIVE-DATABASE-ACCEPTANCE-2026-10-09.md",
+      "gitBlob": "a215425e03d3ee48ef7665f363999260de364307"
+    },
+    {
+      "path": "windows-client/docs/MARKET.md",
+      "gitBlob": "a19b9b13708535ba42e343c374ddc00b2dedbc73"
+    },
+    {
+      "path": "windows-client/docs/SDK-SOURCE.json",
+      "gitBlob": "80d6627f07bec585567f254a5466dfdd276934cf"
+    },
+    {
+      "path": "windows-client/docs/SERVER-AUTOSTART-2026-10-13.md",
+      "gitBlob": "8609a42c5f03d685bce48fc704a249ed28be512f"
+    },
+    {
+      "path": "windows-client/docs/SERVER-HOST-RUNBOOK-2026-10-12.md",
+      "gitBlob": "09bbcbcb17f276facd38e359c3619d7bdadfc332"
+    },
+    {
+      "path": "windows-client/docs/UI-Reference.md",
+      "gitBlob": "08a9085a61d1eaad75ebb33c9893435d1a96d9cf"
+    },
+    {
+      "path": "windows-client/docs/UI-SOURCE.json",
+      "gitBlob": "943d73d788f9dcdc75964ab79b4bd8559fe2f393"
+    },
+    {
+      "path": "windows-client/finfusion_client/__init__.py",
+      "gitBlob": "b156e396f4616e5063b1665e7968440af559b3d0"
+    },
+    {
+      "path": "windows-client/finfusion_client/__main__.py",
+      "gitBlob": "1baf12e8ec1923f63e5b42341aaa49bd0925da0c"
+    },
+    {
+      "path": "windows-client/finfusion_client/capture.py",
+      "gitBlob": "e39cf0b1a1924c95de365e874dd4fb6785c0a937"
+    },
+    {
+      "path": "windows-client/finfusion_client/desktop.py",
+      "gitBlob": "cc018871c1ad1c7642e4bd428bc30aa2236d9fcb"
+    },
+    {
+      "path": "windows-client/finfusion_client/engine.py",
+      "gitBlob": "68ebbd7395e70e01086fac21aeec728b9118e0ae"
+    },
+    {
+      "path": "windows-client/finfusion_client/market.py",
+      "gitBlob": "df7847c693dd0eee65321be5b1975b7515d5c102"
+    },
+    {
+      "path": "windows-client/finfusion_client/runtime.py",
+      "gitBlob": "735104e1411267fd24fd8eb561d54f25adcf8c02"
+    },
+    {
+      "path": "windows-client/finfusion_client/security.py",
+      "gitBlob": "4ff7b8d022f5bfe5cacc41e9725d8eb454bea940"
+    },
+    {
+      "path": "windows-client/finfusion_client/storage.py",
+      "gitBlob": "47787050b508a8f327c998a3ebd0e03d4eec71e0"
+    },
+    {
+      "path": "windows-client/finfusion_client/theme.py",
+      "gitBlob": "f13182a76af219b2010d3a8dfc72454c990d9999"
+    },
+    {
+      "path": "windows-client/finfusion_client/transport.py",
+      "gitBlob": "a29ea51fbdcff5ab8e5989014a2c6f6f4668029f"
+    },
+    {
+      "path": "windows-client/finfusion_client/ui.py",
+      "gitBlob": "4847422cfc9b0d96ca53f0ba8fddb24bdf6ffd6c"
+    },
+    {
+      "path": "windows-client/finfusion_client/worker.py",
+      "gitBlob": "1083358be60152422d20c4d01fb684b001161d8f"
+    },
+    {
+      "path": "windows-client/ops/windows-host/README.md",
+      "gitBlob": "f8216d34c86016051282224286cb3eaf74743684"
+    },
+    {
+      "path": "windows-client/ops/windows-host/apply-host-policy.ps1",
+      "gitBlob": "f00074ecac05f5e00ce5a21c45fd4cffb17be9ef"
+    },
+    {
+      "path": "windows-client/ops/windows-host/check-boot-evidence.ps1",
+      "gitBlob": "dc595d32cf0b0b42866caef7d183166068309056"
+    },
+    {
+      "path": "windows-client/ops/windows-host/clock_probe.py",
+      "gitBlob": "5cabe593375ee731f2feff1900d8c6242d0636bc"
+    },
+    {
+      "path": "windows-client/ops/windows-host/collect-host-evidence.ps1",
+      "gitBlob": "ef2bb8f433030302d8e24c1c51050c710a3be4a5"
+    },
+    {
+      "path": "windows-client/ops/windows-host/finfusion-runtime.conf",
+      "gitBlob": "70c2752026e2c19a8634339aeaec0002f0be7101"
+    },
+    {
+      "path": "windows-client/ops/windows-host/host_ready_guard.py",
+      "gitBlob": "143d583066c4907e218630ab3f45a95ebd611995"
+    },
+    {
+      "path": "windows-client/ops/windows-host/keep-wsl-running.ps1",
+      "gitBlob": "de648c4060f2b9ca51605dd4af8f029326b30a6c"
+    },
+    {
+      "path": "windows-client/ops/windows-host/probe-public.ps1",
+      "gitBlob": "064acae9396a183f6bad716d1932b9a001ecc300"
+    },
+    {
+      "path": "windows-client/ops/windows-host/repair_linux_startup.py",
+      "gitBlob": "78ad6330caca15a8f985badaf1d70d32777db029"
+    },
+    {
+      "path": "windows-client/ops/windows-host/restore-host-policy.ps1",
+      "gitBlob": "2e9447ff9cdb7b42d6d277da1e6e5f4dc6bc4160"
+    },
+    {
+      "path": "windows-client/ops/windows-host/test_clock_probe.py",
+      "gitBlob": "854079972e33cd6854b3075754043cc22a4bbd88"
+    },
+    {
+      "path": "windows-client/ops/windows-host/test_ready_guard.py",
+      "gitBlob": "58386a40304ff792e3e921f105dada98d943bbff"
+    },
+    {
+      "path": "windows-client/packaging/FinfusionClient.iss",
+      "gitBlob": "8d876f5fbc40e6cc63001ca025fd93b12ac61630"
+    },
+    {
+      "path": "windows-client/packaging/test-lifecycle.ps1",
+      "gitBlob": "f546ca8132284f2b2e3db9afb4e7cd9f40a29527"
+    },
+    {
+      "path": "windows-client/packaging/vendor/SOURCE.json",
+      "gitBlob": "5dacbde11e8af99b79ffbd39797c83245fb94884"
+    },
+    {
+      "path": "windows-client/packaging/vm/README.md",
+      "gitBlob": "8a51095fa9ad987b48544485effef6a7eebdc0ca"
+    },
+    {
+      "path": "windows-client/packaging/vm/enable-hyperv.ps1",
+      "gitBlob": "0030ecc6266cc8b0f52c1d59c2b868cb5bd425a0"
+    },
+    {
+      "path": "windows-client/packaging/vm/prepare-vm.ps1",
+      "gitBlob": "0691ff7161343d895009cb19c53ddada3c89a045"
+    },
+    {
+      "path": "windows-client/pytest.ini",
+      "gitBlob": "cf471cb88be86b900e5f04b050c05727d7706c63"
+    },
+    {
+      "path": "windows-client/requirements-dev.lock",
+      "gitBlob": "496ad11c3c494d3e888ed7aaaa0951a3cb412f1e"
+    },
+    {
+      "path": "windows-client/requirements.lock",
+      "gitBlob": "a16fc9171fc962edb2f80063aee98ce8d14acd12"
+    },
+    {
+      "path": "windows-client/requirements.txt",
+      "gitBlob": "49f0f25c5485099f028942a533037402038c75fc"
+    },
+    {
+      "path": "windows-client/run-tests.ps1",
+      "gitBlob": "2e44ab94a61b3b4c84e2fe9f686b2564980bc8b8"
+    },
+    {
+      "path": "windows-client/run.ps1",
+      "gitBlob": "84088b4978f5fa47ac912d8320e1d9dc87dba2f4"
+    },
+    {
+      "path": "windows-client/setup-build-tools.ps1",
+      "gitBlob": "feb783bd56123d80c0f47d9a7cc05de2399b0308"
+    },
+    {
+      "path": "windows-client/setup-dev.ps1",
+      "gitBlob": "fb238823b4da55885b15d6edbcdbbec2bee6c1b7"
+    },
+    {
+      "path": "windows-client/tests/conftest.py",
+      "gitBlob": "b11d631df53acef95bce368e5f6649f65cae3e71"
+    },
+    {
+      "path": "windows-client/tests/test_client.py",
+      "gitBlob": "e9b105eecc347543538c6e875b1dbfaeff8e7a89"
+    },
+    {
+      "path": "windows-client/tests/test_deployed_compatibility.py",
+      "gitBlob": "5938bfae96d311438bddba4173763dc19a5777a7"
+    },
+    {
+      "path": "windows-client/tests/test_edge_cases.py",
+      "gitBlob": "0e5abc19083b7f26f8900f964ef043dec5284c69"
+    },
+    {
+      "path": "windows-client/tests/test_gui.py",
+      "gitBlob": "b7c89b9f7a92a81c477d75e04ecedaac7d21eabf"
+    },
+    {
+      "path": "windows-client/tests/test_version_one.py",
+      "gitBlob": "22de5b46428bbc91f1e21319224b573c8d185546"
+    },
+    {
+      "path": "windows-client/tests/test_webview_core.py",
+      "gitBlob": "51e83505a1f773d0f21d6f6d9feb86b66108179f"
+    },
+    {
+      "path": "windows-client/tools/check_live_webview.py",
+      "gitBlob": "29da2ce05a17e9c16844e96138ea180aca70defd"
+    },
+    {
+      "path": "windows-client/tools/check_readonly_connection.py",
+      "gitBlob": "ad828c286387434f6226082a7174e1b891f9f906"
+    },
+    {
+      "path": "windows-client/tools/download-runtime.py",
+      "gitBlob": "559c5b9744fcccc94bb8d18264280e0482739f70"
+    },
+    {
+      "path": "windows-client/tools/download_vm_image.py",
+      "gitBlob": "5c0dadc442908d87ef94d3c0e2ed1b13a74c4ebc"
+    },
+    {
+      "path": "windows-client/tools/preview_ui.py",
+      "gitBlob": "885fae774a711f8eb345a74b14db016b85247776"
+    },
+    {
+      "path": "windows-client/tools/record-dependencies.py",
+      "gitBlob": "f54df503285396b5e49beaa642fa08137c22fbe0"
+    },
+    {
+      "path": "windows-client/tools/soak_readonly.py",
+      "gitBlob": "b2e88d7d70ccf90450f1fc4774210f5c602d10ba"
+    },
+    {
+      "path": "windows-client/tools/verify_host_signature_clock.py",
+      "gitBlob": "9dad34d6f87572efe10eb77b3f9e64d0764cfdcd"
+    },
+    {
+      "path": "windows-client/tools/verify_independence.py",
+      "gitBlob": "2c9f5e4a5b84cc749ac0634f71e467875b999a8c"
+    },
+    {
+      "path": "windows-client/tools/verify_live_market.py",
+      "gitBlob": "2abc7ad46e2f330d7ced18174beea908d58bcef6"
+    },
+    {
+      "path": "windows-client/tools/visual-compare.py",
+      "gitBlob": "22c0ff927d48f5b48407c5bbbbe49df597d90eac"
+    },
+    {
+      "path": "windows-client/tools/windows_entry.py",
+      "gitBlob": "c0861d2616235a5476746be2c75d3d7ee068b864"
+    },
+    {
+      "path": "windows-client/tools/write_version_info.py",
+      "gitBlob": "d690d9122a21e1756220d70db214f4f71810c337"
+    },
+    {
+      "path": "windows-client/web/app.js",
+      "gitBlob": "733dc4948cd389be13cf92fff469d98b18db1a24"
+    },
+    {
+      "path": "windows-client/web/index.html",
+      "gitBlob": "09d607f64c08dcc7083a9e47af0080d190badd14"
+    },
+    {
+      "path": "windows-client/web/styles.css",
+      "gitBlob": "275e47b549a973aed0f686dab449df331a54e017"
+    }
+  ]
+}

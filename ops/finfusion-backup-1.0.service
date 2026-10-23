@@ -1,0 +1,13 @@
+[Unit]
+Description=Finfusion 1.0 encrypted LIVE database backup
+After=postgresql.service finfusion-live-secrets.service
+
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/opt/finfusion/venv/bin/python -I -B /opt/finfusion-ops/backup.py
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/run /var/lib/finfusion/backups/live /var/lib/finfusion/ops

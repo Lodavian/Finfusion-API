@@ -1,81 +1,35 @@
-# Finfusion API
+# Finfusion：服务器与 Windows 客户端
 
-**2026-10-04 服务器迁移交接入口**：新服务器 Codex 先读 [AGENTS.md](AGENTS.md)，再读 [正式服务器交接文档](docs/server-deployment-handoff.md) 与 [迁移审计记录](docs/server-migration-audit.md)。目标 WSL2 Ubuntu 尚待部署验证，已有 Debian 专用节点安装脚本不能直接当作 Ubuntu 安装器。
+当前开发版本：服务器 **1.0.0-rc1**、客户端 **1.0.0-rc1**。2026-10-23 汇总本机已开发、部署和验证的成果，保留原仓库历史。当前生产为 **LIVE READ_ONLY**，不代表已经通过真实交易验收。
 
-面向程序调用的 Webull HK 机构交易服务器。用户以 P-256 私钥签名调用 HTTPS API，服务器负责账户授权、风控、订单去重、券商访问、持久化和状态回传。管理员通过 Casdoor 登录管理台。
+先读 [最新项目状态](docs/CURRENT-STATUS.md)、[继续开发与部署交接](docs/DEVELOPMENT-HANDOFF.md) 和 [工作规则](AGENTS.md)。2026-10-04 的部署交接与旧 README 作为历史保留，不能代替最新状态。
 
-本目录是独立项目，不读取原有项目目录。第一版只维护 Windows x64 + WSL2 Debian 12 的部署路线。Windows 原生 Python 环境用于开发和模拟测试；正式入口在 Linux 中运行。
+## 仓库目录
 
-当前电脑仅用于开发、构建和自动化测试；实际服务将部署到另一台 Windows 电脑。当前阶段不安装服务、不配置 Tunnel、不修复本机 WSL，也不进行真实券商联调。本机 WSL 状态不影响开发验收。
-
-## 当前交付边界
-
-- 已实现程序客户端登记/批准/禁用/公钥轮换与查询、交易、撤单权限。
-- 已实现账户、持仓、美元购买力、下单、改单、撤单、幂等查询与 WebSocket 事件接口。
-- 保留 PostgreSQL 持久化、管理员控制、节点健康门禁、加密备份及 Windows 节点部署源码。
-- 默认 SANDBOX；LIVE 需要独立节点、数据库、密钥及显式配置，启动后交易总开关默认关闭。
-- 本轮未安装系统服务、连接 Webull 或提交订单；真实 PostgreSQL、WSL2、Sandbox 与实盘部署验收见 `docs/DELIVERY.md`。
-
-## 开发与验证
-
-准备在另一台电脑部署时，先阅读 [新电脑详细部署指南](docs/NEW_COMPUTER_DEPLOYMENT.md)，其中包含构建输入、完整命令、首次初始化前提、验收步骤和故障排查。
-
-系统前提：Python 3.11；编译 Windows 节点还需要 .NET 8 SDK 和对应构建工具。项目依赖安装在本目录，不使用旧项目虚拟环境。
-
-```powershell
-Set-Location 'E:\Finfusion API'
-.\setup-dev.ps1
-.\run-tests.ps1
-```
-
-`run-tests.ps1` 清除旧 PYTHONPATH、运行模拟测试、检查项目独立性和 Python 依赖。它不会启动交易服务。真实 PostgreSQL 测试需显式设置指向全新 `finfusion_test_*` 数据库的 `FINFUSION_TEST_DSN`，未配置时该测试跳过。
-
-也可使用项目内的临时数据库测试工具：它使用指定的 PostgreSQL 二进制文件，自动创建全新测试库，只监听回环地址，并在测试结束后停止数据库，不安装服务。已使用 [EDB Windows 二进制包](https://www.enterprisedb.com/download-postgresql-binaries) 中的 PostgreSQL 17.11 运行全部 38 项测试，全部通过。
-
-```powershell
-.\.venv\Scripts\python.exe tools\test_with_postgres.py --bin-dir 'build\tool-cache\postgresql-17.11-3\pgsql\bin'
-```
-
-二进制包及临时数据库不进入 Git；测试日志保存在 `runtime/postgres-test-*`。
-
-## 程序接入流程
-
-1. 用户在自己的电脑生成密钥：
-
-   ```powershell
-   .\.venv\Scripts\python.exe -m client_sdk.keygen --directory runtime\my-client
-   ```
-
-2. 只把 `public.pem` 提供给管理员；`private.pem` 留在用户电脑。
-3. 管理员创建用户，登记机构凭据可访问的账户，并绑定给该用户。
-4. 管理员在“程序客户端”登记公钥，保存返回的 `clientId`，再批准客户端及相应权限。
-5. 用户使用 `clientId` 和自己的私钥调用 API。首次先查询账户、持仓与购买力，确认权限。
-
-   ```powershell
-   .\.venv\Scripts\python.exe -m examples.query_accounts --url https://api.example.com --client-id CLIENT_ID --private-key runtime\my-client\private.pem
-   ```
-
-下单接口不要求用户先登录网页或手工选择股票。服务器自动准备行情；行情未就绪时拒绝发送订单。客户端不会自动重发交易命令。
-
-## 文档与目录
-
-| 位置 | 用途 |
+| 路径 | 内容 |
 |---|---|
-| `finfusion/` | API、认证、账户权限、交易服务、Webull 适配及 PostgreSQL |
-| `finfusion_common/` | 项目内共享的状态、脱敏和数值工具 |
-| `server_admin/` | 管理员网页 |
-| `client_sdk/`、`examples/` | Python 签名客户端、密钥生成和只读示例 |
-| `tests/` | 模拟与可选 PostgreSQL 集成测试 |
-| `deploy/windows-node/` | 专用 WSL2 节点、Windows 服务、Vault 和运维脚本 |
-| `packaging/` | 源码构建脚本、依赖锁定及许可证 |
-| `docs/API.md`、`docs/openapi.json` | 签名规范、接口契约与恢复行为 |
-| `docs/DEPLOYMENT.md` | 环境隔离、部署、备份和验收步骤 |
-| `docs/source-manifest.json` | 复制来源与原文件 SHA-256 |
+| `finfusion/`、`finfusion_common/` | Linux 服务器、签名鉴权、权限、风控、PostgreSQL、券商网关 |
+| `server_admin/` | 已获用户授权的管理界面；通过 Casdoor 登录 |
+| `windows-client/` | 独立 Windows 客户端源码、UI、依赖锁定、许可证、构建及验收脚本 |
+| `ops/` | 本机备份、健康检查、候选部署/恢复验证及 Windows 宿主工具 |
+| `deployment-tools/` | 已有身份初始化与正式部署工具；包含站点路径，执行前必须审查 |
+| `management-preview/` | 仅模拟数据的只读管理界面预览，不转发生产 API |
+| `tools/live_db_acceptance/` | 数据库验收工具；其 `run` 会读取生产快照，需另行安排 |
+| `tests/`、`docs/` | 服务器测试、协议、项目状态、历史交接和验收边界 |
 
-生成或更新 OpenAPI：`.\.venv\Scripts\python.exe tools\build_openapi.py`。
+## 开发入口
 
-## 交易约束
+服务器使用 Python 3.11，依赖见根目录 `requirements-dev.txt`；不要使用 `windows-client` 的依赖环境启动服务器。根目录 `pytest.ini` 只收集服务器测试。完整隔离数据库测试入口是 `ops/test_candidate.py`，步骤及前置条件见交接文档。
 
-仅美股整股、BUY/SELL、MARKET/LIMIT、DAY、CORE，不做空。一个 Webull 账户仅分配给一个用户，用户可拥有多个账户和客户端。单账户交易串行、券商请求共享限流。未知结果进入对账并阻止该账户的新单和改单；查询及有权限的撤单保留。
+Windows 客户端使用 Python 3.12 x64。在 PowerShell 切换到 clone 中的 `windows-client` 目录，再执行 `setup-dev.ps1`、`run.ps1` 或 `run-tests.ps1 -q`。运行目录下不需要服务器包或券商 SDK。构建入口为 `build-windows.ps1`、`build-installer.ps1`。
 
-每个环境运行一个交易进程；数据库会拒绝第二个交易进程。关闭交易开关与禁用用户不同：前者保留查询和撤单，后者撤销访问权限。
+编译器、WebView2 完整离线运行时、ISO、EXE/ZIP、虚拟环境、数据库与真实配置不进入 Git。客户端打包前按 `windows-client/BUILDING.md` 准备本机工具；源码仓库本身不是可直接安装的软件包。
+
+## 本次验证
+
+- 客户端：59 passed；客户端独立性：16 个 Python 文件，0 错误。
+- 服务器：临时 PostgreSQL、LIVE 合成数据、无外网隔离，64 passed，0 skipped。
+- 宿主工具：21 passed；服务器独立性：103 个受检文件，0 错误。
+- 核对线上核心源码与本次服务器源码一致。服务活跃、公网存活 HTTP 200；全局和有效交易开关均关闭。完整只读探测结果见最新状态。
+
+真实订单、干净 VM 安装生命周期、独立电脑身份、登录前冷启动及跨日稳定性仍需单独验收。没有因上传仓库而升级生产服务、打开交易或迁移数据库。

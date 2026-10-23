@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Finfusion API",
-    "version": "0.1.0",
+    "version": "1.0.0-rc1",
     "description": "P-256 signed program API; administrator login is separate. See API.md for canonical signing and timeout recovery."
   },
   "servers": [
@@ -371,7 +371,7 @@
     },
     "/v1/accounts/{account_ref}/balance": {
       "get": {
-        "summary": "USD buying power",
+        "summary": "USD cash balance and buying power",
         "operationId": "get_v1_accounts_account_ref_balance",
         "security": [
           {
@@ -2647,6 +2647,658 @@
           }
         }
       }
+    },
+    "/v1/market/symbols": {
+      "get": {
+        "summary": "Read-only market symbols",
+        "operationId": "get_market_symbols",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "accountRef",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "White-listed market DTO; see MARKET.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/market/snapshot": {
+      "get": {
+        "summary": "Read-only market snapshot",
+        "operationId": "get_market_snapshot",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "accountRef",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "White-listed market DTO; see MARKET.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketSnapshot"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/market/trades": {
+      "get": {
+        "summary": "Read-only market trades",
+        "operationId": "get_market_trades",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "accountRef",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 10
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "minimum": 1,
+              "maximum": 200
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "White-listed market DTO; see MARKET.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketTrades"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/market/events": {
+      "get": {
+        "summary": "Read-only market events",
+        "operationId": "get_market_events",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "accountRef",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "symbol",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "White-listed market DTO; see MARKET.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "101": {
+            "description": "Signed read-only WebSocket; connected / market.update. Account/symbol scoped; reauthenticate after 300 s."
+          }
+        }
+      }
+    },
+    "/v1/accounts/{account_ref}/ui-context": {
+      "get": {
+        "summary": "Public read-only environment, effective permissions and risk limits",
+        "operationId": "get_ui_context",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_ref",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List authorized accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Accounts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/info": {
+      "get": {
+        "summary": "Signed server version and deployment capabilities",
+        "operationId": "get_server_info",
+        "security": [
+          {
+            "ClientId": [],
+            "ClientSignature": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Nonce",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List authorized accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "product",
+                    "version",
+                    "apiProtocol",
+                    "deploymentMode",
+                    "capabilities"
+                  ],
+                  "properties": {
+                    "product": {
+                      "type": "string"
+                    },
+                    "version": {
+                      "type": "string"
+                    },
+                    "apiProtocol": {
+                      "type": "string"
+                    },
+                    "deploymentMode": {
+                      "type": "string",
+                      "enum": [
+                        "READ_ONLY",
+                        "STANDARD"
+                      ]
+                    },
+                    "capabilities": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See error.code and docs/API.md",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2839,6 +3491,21 @@
           "usdBuyingPower": {
             "type": "string",
             "nullable": true
+          },
+          "usdCashBalance": {
+            "type": "string",
+            "nullable": true,
+            "description": "USD currency cash field; missing is null, never buying power"
+          },
+          "usdSettledCash": {
+            "type": "string",
+            "nullable": true,
+            "description": "USD currency cash field; missing is null, never buying power"
+          },
+          "usdUnsettledCash": {
+            "type": "string",
+            "nullable": true,
+            "description": "USD currency cash field; missing is null, never buying power"
           }
         }
       },
@@ -2882,6 +3549,194 @@
           "nextCursor": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "MarketSnapshot": {
+        "type": "object",
+        "properties": {
+          "lastPrice": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "change": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "changePercent": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "open": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "high": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "low": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "volume": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "spread": {
+            "type": "string",
+            "nullable": true,
+            "description": "Finite decimal string, missing=null"
+          },
+          "accountRef": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          },
+          "asOf": {
+            "type": "number",
+            "nullable": true
+          },
+          "receivedAt": {
+            "type": "number"
+          },
+          "bookAsOf": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "READY",
+              "STALE",
+              "UNAVAILABLE"
+            ]
+          },
+          "bid": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": false,
+            "properties": {
+              "price": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "price",
+              "size"
+            ]
+          },
+          "ask": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": false,
+            "properties": {
+              "price": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "price",
+              "size"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "lastPrice",
+          "change",
+          "changePercent",
+          "open",
+          "high",
+          "low",
+          "volume",
+          "spread",
+          "accountRef",
+          "symbol",
+          "version",
+          "currency",
+          "asOf",
+          "receivedAt",
+          "status",
+          "bid",
+          "ask"
+        ]
+      },
+      "MarketTrade": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "time",
+          "price",
+          "size",
+          "side"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "time": {
+            "type": "number"
+          },
+          "price": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "side": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "BUY",
+              "SELL",
+              null
+            ]
+          }
+        }
+      },
+      "MarketTrades": {
+        "type": "object",
+        "properties": {
+          "accountRef": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "trades": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "$ref": "#/components/schemas/MarketTrade"
+            }
           }
         }
       }

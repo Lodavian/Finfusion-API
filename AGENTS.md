@@ -1,6 +1,6 @@
-# Finfusion API：服务器迁移与部署工作规则
+# Finfusion API：服务器与客户端开发工作规则
 
-本仓库是从 FastOrder 来源整理的独立 Finfusion API 项目，不是旧 FastOrder 桌面项目。当前任务是私有 Git → Windows 10 + WSL2 Ubuntu 的部署交接。先阅读本文件，再阅读 `docs/server-deployment-handoff.md`；按实际 clone 根目录给出这些文件的完整路径。
+本仓库是从 FastOrder 来源整理的独立 Finfusion API 项目，不是旧 FastOrder 桌面项目。当前任务是私有 Git → Windows 10 + WSL2 Ubuntu 的部署交接。先阅读本文件，再阅读 `docs/CURRENT-STATUS.md` 与 `docs/DEVELOPMENT-HANDOFF.md`；旧迁移背景见 `docs/server-deployment-handoff.md`；按实际 clone 根目录给出这些文件的完整路径。
 
 ## 工作方式
 
@@ -21,7 +21,7 @@
 
 ## 秘密、数据和 Git
 
-- remote 必须确认是 PRIVATE；无法确认就停止推送并说明登录/权限步骤。clone 成功本身不能证明 private。
+- 默认 remote 必须确认是 PRIVATE；无法确认就停止推送并说明登录/权限步骤。clone 成功本身不能证明 private。2026-10-23 用户已明确批准本次将脱敏源码与文档推送当前公开的 Lodavian/Finfusion-API；该例外仅用于本次整理，不能用于公开任何秘密或运行数据。
 - 不得将真实 .env、App Key/Secret、Account ID、Access Token、Cookie、API Token、TLS 私钥、Windows Credential、券商 token/cache 写入 Git。
 - 不提交 .venv、build、dist、安装包、Nuitka 制品、缓存、日志、数据库、runtime 或个人机器数据。模板只允许无真实值的明确占位符。
 - `.gitignore` 不会清除已跟踪文件或历史：提交前同时检查暂存区和相关历史；审计日志只能输出路径/提交/问题类别，不打印秘密值。

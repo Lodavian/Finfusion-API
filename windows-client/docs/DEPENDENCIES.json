@@ -1,0 +1,269 @@
+[
+  {
+    "name": "aiohappyeyeballs",
+    "version": "2.7.1",
+    "license": "PSF-2.0",
+    "files": [
+      "LICENSES\\aiohappyeyeballs\\LICENSE"
+    ]
+  },
+  {
+    "name": "aiohttp",
+    "version": "3.14.3",
+    "license": "Apache-2.0 AND MIT",
+    "files": [
+      "LICENSES\\aiohttp\\LICENSE.txt",
+      "LICENSES\\aiohttp\\LICENSE"
+    ]
+  },
+  {
+    "name": "aiosignal",
+    "version": "1.4.0",
+    "license": "Apache 2.0",
+    "files": [
+      "LICENSES\\aiosignal\\LICENSE"
+    ]
+  },
+  {
+    "name": "altgraph",
+    "version": "0.17.5",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\altgraph\\LICENSE"
+    ]
+  },
+  {
+    "name": "attrs",
+    "version": "26.1.0",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\attrs\\LICENSE"
+    ]
+  },
+  {
+    "name": "bottle",
+    "version": "0.13.4",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\bottle\\LICENSE"
+    ]
+  },
+  {
+    "name": "cffi",
+    "version": "2.1.1",
+    "license": "MIT-0",
+    "files": [
+      "LICENSES\\cffi\\LICENSE"
+    ]
+  },
+  {
+    "name": "clr_loader",
+    "version": "0.3.1",
+    "license": "",
+    "files": [
+      "LICENSES\\clr_loader\\LICENSE"
+    ]
+  },
+  {
+    "name": "colorama",
+    "version": "0.4.6",
+    "license": "",
+    "files": [
+      "LICENSES\\colorama\\LICENSE.txt"
+    ]
+  },
+  {
+    "name": "cryptography",
+    "version": "41.0.7",
+    "license": "Apache-2.0 OR BSD-3-Clause",
+    "files": [
+      "LICENSES\\cryptography\\LICENSE"
+    ]
+  },
+  {
+    "name": "frozenlist",
+    "version": "1.8.0",
+    "license": "Apache-2.0",
+    "files": [
+      "LICENSES\\frozenlist\\LICENSE"
+    ]
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license": "BSD-3-Clause",
+    "files": [
+      "LICENSES\\idna\\LICENSE.md"
+    ]
+  },
+  {
+    "name": "iniconfig",
+    "version": "2.3.1",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\iniconfig\\LICENSE"
+    ]
+  },
+  {
+    "name": "multidict",
+    "version": "6.9.1",
+    "license": "Apache License 2.0",
+    "files": [
+      "LICENSES\\multidict\\LICENSE"
+    ]
+  },
+  {
+    "name": "packaging",
+    "version": "26.3",
+    "license": "Apache-2.0 OR BSD-2-Clause",
+    "files": [
+      "LICENSES\\packaging\\LICENSE"
+    ]
+  },
+  {
+    "name": "pefile",
+    "version": "2024.8.26",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\pefile\\LICENSE"
+    ]
+  },
+  {
+    "name": "pip",
+    "version": "25.0.1",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\pip\\LICENSE.txt"
+    ]
+  },
+  {
+    "name": "pluggy",
+    "version": "1.6.0",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\pluggy\\LICENSE"
+    ]
+  },
+  {
+    "name": "propcache",
+    "version": "0.5.4",
+    "license": "Apache-2.0",
+    "files": [
+      "LICENSES\\propcache\\LICENSE"
+    ]
+  },
+  {
+    "name": "proxy_tools",
+    "version": "0.1.0",
+    "license": "MIT",
+    "files": []
+  },
+  {
+    "name": "pycparser",
+    "version": "3.0",
+    "license": "BSD-3-Clause",
+    "files": [
+      "LICENSES\\pycparser\\LICENSE"
+    ]
+  },
+  {
+    "name": "Pygments",
+    "version": "2.21.0",
+    "license": "BSD-2-Clause",
+    "files": [
+      "LICENSES\\Pygments\\LICENSE"
+    ]
+  },
+  {
+    "name": "pyinstaller",
+    "version": "6.22.3",
+    "license": "GPLv2-or-later with a special exception which allows to use PyInstaller to build and distribute non-free programs (including commercial ones)",
+    "files": [
+      "LICENSES\\pyinstaller\\COPYING.txt"
+    ]
+  },
+  {
+    "name": "pyinstaller-hooks-contrib",
+    "version": "2026.8",
+    "license": "",
+    "files": [
+      "LICENSES\\pyinstaller-hooks-contrib\\LICENSE"
+    ]
+  },
+  {
+    "name": "pytest",
+    "version": "8.4.2",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\pytest\\LICENSE"
+    ]
+  },
+  {
+    "name": "pytest-asyncio",
+    "version": "1.2.0",
+    "license": "Apache-2.0",
+    "files": [
+      "LICENSES\\pytest-asyncio\\LICENSE"
+    ]
+  },
+  {
+    "name": "pythonnet",
+    "version": "3.2.0",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\pythonnet\\LICENSE"
+    ]
+  },
+  {
+    "name": "pywebview",
+    "version": "6.2.1",
+    "license": "BSD 3-Clause License\n\nCopyright (c) 2014-2017, Roman Sirokov\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice,\n  this list of conditions and the following disclaimer in the documentation\n  and/or other materials provided with the distribution.\n\n* Neither the name of the copyright holder nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n",
+    "files": [
+      "LICENSES\\pywebview\\LICENSE"
+    ]
+  },
+  {
+    "name": "pywin32-ctypes",
+    "version": "0.2.3",
+    "license": "BSD-3-Clause",
+    "files": [
+      "LICENSES\\pywin32-ctypes\\LICENSE.txt"
+    ]
+  },
+  {
+    "name": "setuptools",
+    "version": "84.0.0",
+    "license": "MIT",
+    "files": [
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE",
+      "LICENSES\\setuptools\\LICENSE.txt",
+      "LICENSES\\setuptools\\LICENSE"
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license": "PSF-2.0",
+    "files": [
+      "LICENSES\\typing_extensions\\LICENSE"
+    ]
+  },
+  {
+    "name": "yarl",
+    "version": "1.25.1",
+    "license": "Apache-2.0",
+    "files": [
+      "LICENSES\\yarl\\LICENSE"
+    ]
+  }
+]

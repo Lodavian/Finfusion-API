@@ -156,6 +156,8 @@ async def build_application() -> tuple[web.Application, InstitutionalWebullGatew
         admin = AdminService(store, controls, casdoor, discovered)
         api = ServerApi(
             service, controls, authenticator, token_verifier,
+            environment_name=environment.name,
+            deployment_mode=os.environ.get("FINFUSION_DEPLOYMENT_MODE", "READ_ONLY"),
             register_client=store.register_client,
             set_control=store.set_control,
             set_client_enabled=store.set_client_enabled,

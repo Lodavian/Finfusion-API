@@ -75,3 +75,11 @@ UNKNOWN 会阻止该账户继续新单和改单。启动及后台每 10 秒对�
 | HTTP_ERROR | 对应 HTTP 状态 | 路由、方法或请求大小错误 |
 
 券商调用共享 15 次/秒令牌桶，这是项目的初始本地限制，生产上线前须根据机构权限及实测确认，不能视为券商额度保证。错误返回和订单对象不包含 Webull 凭据。
+
+## Client 0.2 market extension
+See [MARKET.md](MARKET.md). All five new GET routes use the unchanged FINFUSION-V1 signature, including encoded query string. No order route or event schema changed.
+
+Balance adds usdCashBalance, usdSettledCash, usdUnsettledCash from USD currency assets only; decimals are strings, missing values null. Existing usdBuyingPower and trading gateway balance semantics remain unchanged.
+
+## Server 1.0
+Signed GET /v1/info returns product, version, apiProtocol, deploymentMode and capabilities. ui-context adds serverVersion, deploymentMode, tradeDeploymentAllowed; READ_ONLY always denies trading and permission escalation. FINFUSION-V1 signing and order semantics are unchanged.

@@ -5,97 +5,59 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <title>Finfusion 管理台</title>
+  <link rel="icon" href="/admin/assets/brand.png">
   <link rel="stylesheet" href="/admin/styles.css">
 </head>
 <body>
-  <header><h1>Finfusion 管理台</h1><button id="login">管理员登录</button></header>
-  <main id="app" hidden>
-    <section>
-      <h2>交易总开关</h2>
-      <p id="globalState">正在读取…</p>
-      <button data-global="true">开启交易</button>
-      <button class="danger" data-global="false">中断新单和改单</button>
-    </section>
-    <section>
-      <h2>创建用户</h2>
-      <form id="userForm">
-        <input name="username" placeholder="用户名" required minlength="3">
-        <input name="displayName" placeholder="显示名称" required>
-        <input name="password" type="password" placeholder="固定密码（至少12位）" required minlength="12">
-        <button>创建</button>
-      </form>
-    </section>
-    <section>
-      <h2>登记与绑定账户</h2>
-      <form id="accountForm">
-        <input name="brokerAccountId" placeholder="Webull账户ID（仅服务器保存）" required>
-        <input name="alias" placeholder="账户别名" required>
-        <button>登记</button>
-      </form>
-      <form id="bindingForm">
-        <input name="userId" placeholder="Casdoor用户ID" required>
-        <input name="accountRef" placeholder="账户 accountRef" required>
-        <button>绑定</button>
-      </form>
-      <form id="unbindForm">
-        <input name="accountRef" placeholder="要解绑的 accountRef" required>
-        <button class="danger">立即解绑并撤权</button>
-      </form>
-    </section>
-    <section>
-      <h2>用户与客户端撤权</h2>
-      <form id="userStatusForm">
-        <input name="userId" placeholder="Casdoor用户ID" required>
-        <select name="enabled"><option value="true">启用用户</option><option value="false">禁用用户</option></select>
-        <button>应用用户状态</button>
-      </form>
-      <form id="passwordForm">
-        <input name="userId" placeholder="Casdoor用户ID" required>
-        <input name="password" type="password" placeholder="新固定密码（至少12位）" required minlength="12">
-        <button>管理员重置密码</button>
-      </form>
-      <form id="clientForm">
-        <input name="clientId" placeholder="客户端ID" required>
-        <select name="enabled"><option value="false">撤销客户端</option><option value="true">重新启用客户端</option></select>
-        <button>应用客户端状态</button>
-      </form>
-    </section>
-    <section>
-      <h2>程序客户端</h2>
-      <p>用户本地生成 P-256 密钥，只提交公钥。登记后默认禁用；轮换公钥后必须重新批准。</p>
-      <form id="registerClientForm">
-        <input name="userId" placeholder="所属用户ID" required>
-        <input name="label" placeholder="客户端名称" required maxlength="80">
-        <textarea name="publicKeyPem" placeholder="P-256 PEM 公钥" required rows="5"></textarea>
-        <button>登记客户端</button>
-      </form>
-      <form id="clientPermissionsForm">
-        <input name="clientId" placeholder="客户端ID" required>
-        <label><input type="checkbox" name="enabled">批准启用</label>
-        <label><input type="checkbox" name="canRead" checked>查询与事件订阅</label>
-        <label><input type="checkbox" name="canTrade">下单与改单</label>
-        <label><input type="checkbox" name="canCancel">撤单</label>
-        <button>保存权限</button>
-      </form>
-      <form id="rotateClientForm">
-        <input name="clientId" placeholder="客户端ID" required>
-        <textarea name="publicKeyPem" placeholder="新的 P-256 PEM 公钥" required rows="5"></textarea>
-        <button>轮换公钥并停用</button>
-      </form>
-    </section>
-    <section>
-      <h2>分级交易开关</h2>
-      <form id="controlForm">
-        <select name="scope"><option value="user">用户</option><option value="account">账户</option></select>
-        <input name="key" placeholder="用户ID或 accountRef" required>
-        <select name="enabled"><option value="true">允许新单与改单</option><option value="false">中断新单与改单</option></select>
-        <input name="reason" placeholder="原因" required>
-        <button>应用交易开关</button>
-      </form>
-    </section>
-    <section><h2>当前状态</h2><div id="state"></div></section>
-  </main>
-  <output id="message" aria-live="polite"></output>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><img src="/admin/assets/brand.png" alt=""><span>finfusion<small>ADMIN WORKSPACE</small></span></a>
+    <p class="sidebar-caption">独立交易基础设施<br>账户 · 授权 · 控制</p>
+    <p class="nav-label">WORKSPACE</p>
+    <nav aria-label="管理台导航">
+      <button data-page="overview" class="active" aria-current="page"><img src="/admin/assets/grid.svg" alt="">工作空间<span class="nav-count">01</span></button>
+      <p class="nav-label">用户与接入</p>
+      <button data-page="users"><img src="/admin/assets/people.svg" alt="">用户账号</button>
+      <button data-page="clients"><img src="/admin/assets/key.svg" alt="">API 客户端</button>
+      <button data-page="accounts"><img src="/admin/assets/wallet.svg" alt="">账户分配</button>
+      <p class="nav-label">基础设施</p>
+      <button data-page="controls"><img src="/admin/assets/sliders.svg" alt="">权限与交易控制</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="admin-identity"><img src="/admin/assets/person.svg" alt=""><div>管理员空间<small>Manage · Authorize · Monitor</small></div></div><div class="connection-footer"><span id="sideConnection">管理服务 · 未连接</span><small>用户私钥始终保留在客户端</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb">工作空间</strong></div><div class="header-actions"><span class="badge neutral" id="connectionBadge">未登录</span><button id="login" class="quiet"><img src="/admin/assets/lock.svg" alt="">管理员登录</button><button id="logout" class="quiet" hidden>退出登录</button></div></header>
+    <main>
+      <div id="previewNotice" class="notice" hidden><strong>本地界面预览</strong><span>未连接管理服务。所有数量与权限均为示例，操作不会写入服务器。</span><a id="productionLink" href="https://api.finfusion.asia/admin/" target="_blank" rel="noopener">正式管理入口（待启用）</a></div>
+      <div id="offlineNotice" class="notice" hidden><strong>管理服务暂不可用</strong><span>页面可以查看；登录及管理操作需启用 Casdoor 和正式管理服务。</span></div>
+      <div class="page-heading"><div><p class="eyebrow">INDEPENDENT ADMIN WORKSPACE</p><h1 id="pageTitle">Finfusion 管理空间</h1><p id="pageDescription">管理用户与程序接入，让每一份权限都有明确的归属。</p></div><button id="refresh" class="quiet"><img src="/admin/assets/arrow-clockwise.svg" alt="">刷新状态</button></div>
+      <section class="page" data-panel="overview">
+        <div class="overview-grid">
+          <div class="module-list"><button class="module selected" data-jump="clients"><span class="module-kicker">程序接入</span><h2>API 客户端</h2><p>公钥登记 · 权限批准与撤销</p><small>P-256 SIGNATURE</small></button><button class="module" data-jump="users"><span class="module-kicker">用户管理</span><h2>用户与账户</h2><p>账号状态 · 券商账户分配</p><small>IDENTITY & ACCESS</small></button><div class="module note"><span class="module-kicker">授权原则</span><p>先登记，再批准。<br>查询、交易与撤单<br>分别授权。</p></div></div>
+          <div class="overview-main"><article class="card"><div class="card-header"><div><h2>接入总览</h2><p id="dataOrigin">登录后读取服务器状态</p></div><span class="badge neutral" id="stateSource">等待鉴权</span></div><div class="metrics"><div><span>用户账号</span><strong id="userCount">—</strong><small id="userDetail">尚未读取</small></div><div><span>API 客户端</span><strong id="clientCount">—</strong><small id="clientDetail">尚未读取</small></div><div><span>已分配账户</span><strong id="accountCount">—</strong><small id="accountDetail">尚未读取</small></div></div><div class="section-line"><h3>最近登记的客户端</h3><button class="text-link" data-jump="clients">管理全部客户端</button></div><div class="table-wrap" id="recentClients"><div class="empty">登录后查看客户端登记与授权状态。</div></div><div class="card-foot">身份通过公钥签名校验；客户端只能访问已授权账户。</div></article>
+          <article class="card control-overview"><div class="card-header"><div><h2>交易控制</h2><p>全局开关与用户、账户权限共同生效</p></div><span id="globalBadge" class="badge neutral">尚未读取</span></div><div class="control-rows"><div><span>全局交易开关</span><strong id="globalState">等待管理员登录</strong></div><div><span>实际交易就绪</span><strong id="readinessState">尚未读取</strong></div><div><span>最近更新</span><strong id="lastUpdated">—</strong></div></div><button class="outline" data-jump="controls">查看权限与交易控制<img src="/admin/assets/arrow-up-right.svg" alt=""></button></article></div>
+        </div>
+      </section>
+      <section class="page" data-panel="users" hidden><div class="section-line"><h2>用户账号</h2><button class="primary" data-dialog="userForm">创建用户</button></div><div class="toolbar"><label class="search-label">搜索用户<input id="userSearch" type="search" placeholder="用户名或用户 ID"></label><span class="muted">用户禁用后立即撤销接入权限</span></div><article class="card table-card"><div class="table-wrap" id="usersTable"></div></article><div class="action-strip"><button class="outline" data-dialog="userStatusForm">启用 / 禁用用户</button><button class="outline" data-dialog="passwordForm">重置用户密码</button></div></section>
+      <section class="page" data-panel="clients" hidden><div class="section-line"><h2>API 客户端</h2><button class="primary" data-dialog="registerClientForm">登记客户端</button></div><div class="toolbar"><label class="search-label">搜索客户端<input id="clientSearch" type="search" placeholder="名称、clientId 或所属用户"></label><span class="muted">登记后默认禁用，批准后才能访问</span></div><article class="card table-card"><div class="table-wrap" id="clientsTable"></div></article><div class="action-strip"><button class="outline" data-dialog="clientPermissionsForm">分配 API 权限</button><button class="outline" data-dialog="clientForm">启用 / 撤销客户端</button><button class="outline" data-dialog="rotateClientForm">轮换客户端公钥</button></div><div class="help-card"><h3>如何分发 API 接入</h3><div class="steps"><div><small>STEP 01</small><h4>客户端生成密钥</h4><p>用户保留私钥，只提交公钥。</p></div><div><small>STEP 02</small><h4>管理员登记</h4><p>选择所属用户，登记公钥并获取 clientId。</p></div><div><small>STEP 03</small><h4>分配权限</h4><p>批准启用，分别设置查询、交易、撤单。</p></div></div></div></section>
+      <section class="page" data-panel="accounts" hidden><div class="section-line"><h2>券商账户</h2><button class="primary" data-dialog="accountForm">登记账户</button></div><div class="toolbar"><label class="search-label">搜索账户<input id="accountSearch" type="search" placeholder="别名、accountRef 或所属用户"></label><span class="muted">客户端仅使用 accountRef；真实券商账户号由服务器保存</span></div><article class="card table-card"><div class="table-wrap" id="accountsTable"></div></article><div class="action-strip"><button class="outline" data-dialog="bindingForm">绑定用户</button><button class="outline danger" data-dialog="unbindForm">解绑并撤权</button></div></section>
+      <section class="page" data-panel="controls" hidden><div class="two-columns"><article class="card"><div class="card-header"><div><h2>全局交易开关</h2><p>中断新单与改单，撤单权限独立管理</p></div></div><p class="control-display" id="controlDisplay">尚未读取</p><p class="muted">开启全局开关仍需满足服务器健康检查、用户权限与账户权限。</p><div class="action-strip"><button class="primary" data-global="true">开启交易</button><button class="outline danger" data-global="false">中断新单和改单</button></div></article><article class="card"><div class="card-header"><div><h2>分级交易权限</h2><p>按用户或账户控制新单与改单</p></div></div><form id="controlForm"><label>控制范围<select name="scope"><option value="user">用户</option><option value="account">账户</option></select></label><label>用户 ID / accountRef<input name="key" required placeholder="选择要调整的用户或账户"></label><label>操作<select name="enabled"><option value="false">中断新单与改单</option><option value="true">允许新单与改单</option></select></label><label>操作原因<input name="reason" required maxlength="200" placeholder="填写原因，写入服务器记录"></label><button class="primary" type="submit">应用交易权限</button></form></article></div></section>
+      <footer class="workspace-footer"><span>Finfusion · Administrator workspace</span><span>权限清晰，接入有序。</span></footer>
+    </main>
+  </div>
+  <dialog id="formDialog" aria-labelledby="dialogTitle" aria-describedby="dialogDescription"><div class="dialog-header"><h2 id="dialogTitle"></h2><button id="closeDialog" class="quiet" aria-label="关闭弹窗">关闭</button></div><p id="dialogDescription" class="muted"></p><div id="formHost"></div></dialog>
+  <div id="formTemplates" hidden>
+    <form id="userForm" data-title="创建用户" data-description="建立用户身份，账户与客户端权限需另行分配。"><label>用户名<input name="username" required minlength="3" maxlength="64" pattern="[A-Za-z0-9._-]{3,64}" placeholder="例如 research-team"></label><label>显示名称<input name="displayName" required maxlength="80" placeholder="用户显示名称"></label><label>初始密码<input name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password" placeholder="至少 12 位"></label><button class="primary">创建用户</button></form>
+    <form id="accountForm" data-title="登记券商账户" data-description="仅能登记服务器机构凭据已发现的 Webull 账户。"><label>Webull 账户 ID<input name="brokerAccountId" required placeholder="真实账户 ID，仅服务器保存"></label><label>账户别名<input name="alias" required maxlength="80" placeholder="便于识别的账户名称"></label><button class="primary">登记账户</button></form>
+    <form id="bindingForm" data-title="绑定用户与账户" data-description="每个账户仅分配给一个用户。"><label>用户 ID<input name="userId" required></label><label>账户 accountRef<input name="accountRef" required></label><button class="primary">绑定账户</button></form>
+    <form id="unbindForm" data-title="解绑并撤权" data-description="解绑后原用户立即失去该账户访问权限。"><label>账户 accountRef<input name="accountRef" required></label><button class="primary danger">解绑并撤权</button></form>
+    <form id="userStatusForm" data-title="用户状态" data-description="禁用用户会立即撤销其访问权限。"><label>用户 ID<input name="userId" required></label><label>用户状态<select name="enabled"><option value="false">禁用用户</option><option value="true">启用用户</option></select></label><button class="primary">应用用户状态</button></form>
+    <form id="passwordForm" data-title="重置用户密码" data-description="由管理员在身份服务中设置新的用户密码。"><label>用户 ID<input name="userId" required></label><label>新密码<input name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password" placeholder="至少 12 位"></label><button class="primary">重置密码</button></form>
+    <form id="clientForm" data-title="客户端状态" data-description="撤销客户端后现有事件连接会关闭。"><label>客户端 clientId<input name="clientId" required></label><label>客户端状态<select name="enabled"><option value="false">撤销客户端</option><option value="true">启用客户端</option></select></label><button class="primary">应用客户端状态</button></form>
+    <form id="registerClientForm" data-title="登记 API 客户端" data-description="只提交 P-256 公钥。不要粘贴私钥或券商凭据。"><label>所属用户 ID<input name="userId" required></label><label>客户端名称<input name="label" required maxlength="80" placeholder="例如 Windows 工作站"></label><label>P-256 PEM 公钥<textarea name="publicKeyPem" required rows="6" placeholder="-----BEGIN PUBLIC KEY-----"></textarea></label><button class="primary">登记并生成 clientId</button></form>
+    <form id="clientPermissionsForm" data-title="分配 API 权限" data-description="查询、下单与改单、撤单分别授权，账户归属仍由服务器校验。"><label>客户端 clientId<input name="clientId" required></label><label class="check"><input type="checkbox" name="enabled">批准启用客户端</label><label class="check"><input type="checkbox" name="canRead" checked>查询与事件订阅</label><label class="check"><input type="checkbox" name="canTrade">下单与改单</label><label class="check"><input type="checkbox" name="canCancel">撤单</label><button class="primary">保存客户端权限</button></form>
+    <form id="rotateClientForm" data-title="轮换客户端公钥" data-description="轮换公钥会停用客户端，需要管理员重新批准。"><label>客户端 clientId<input name="clientId" required></label><label>新的 P-256 PEM 公钥<textarea name="publicKeyPem" required rows="6" placeholder="-----BEGIN PUBLIC KEY-----"></textarea></label><button class="primary">轮换公钥并停用</button></form>
+  </div>
+  <output id="message" class="toast" aria-live="polite" hidden></output>
   <script src="/admin/app.js" defer></script>
 </body>
 </html>

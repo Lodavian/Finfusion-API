@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/Lodavian/-.git",
+  "commit": "680b5a8f2ce1a5c5830fc9e59ba4bf97735010dd",
+  "note": "Original CSS prefix, layout, icon reused; JavaScript replaced. No broker backend copied.",
+  "sha256": {
+    "assets\\FinfusionClient.ico": "b5fea57564963c21a99a9ae139365221060a807c72c1b998517db958a5f8b2d5",
+    "assets\\icon-master.png": "1efc425b85ef89251efb46dab944cb11878ab8ca4792fff948e266d53c9c01de",
+    "web\\app.js": "624d655541814ca1494a65ade3a459ceda9ee436232ce8c2387cb7f1f11fee75",
+    "web\\index.html": "73f48d2eec57fb40f94d087928801154e11fc7c59d8e81a527531e4b2e48eb0f",
+    "web\\styles.css": "5f9ec52b5e99056f236b0235dfe386de439b1c5878181fdecc725ea52e7b32f3"
+  },
+  "originalReferenceSha256": {
+    "index.html": "a445ec263bfbfd13f249ab295fab1bc15c4359430a13d7fab5c1718960354b9c",
+    "styles.css": "528e6e634c199bbab1a45379247c9489308512e5ad04b8b68b5922cd3b34efe0"
+  },
+  "originalReferenceNote": "Reference HTML changes only relative CSS URL and removal of original backend JavaScript. Raw original hash recorded separately in prior UI-Reference.md."
+}

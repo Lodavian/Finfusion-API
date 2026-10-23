@@ -59,6 +59,7 @@ class InstitutionalWebullGateway:
     def __init__(self, config: GatewayConfig, event_sink: Callable[[dict[str, Any]], None] | None = None):
         self.config = config
         self.event_sink = event_sink or (lambda _event: None)
+        self.market_observers: list[Callable[[Any], None]] = []
         self.trade_client: Any = None
         self.data_client: Any = None
         self.streaming_client: Any = None
@@ -73,6 +74,8 @@ class InstitutionalWebullGateway:
         self._symbol_references: defaultdict[str, int] = defaultdict(int)
         self._reference_symbols: dict[str, str] = {}
         self._subscription_lock = asyncio.Lock()
+        self._market_recovery_lock = asyncio.Lock()
+        self._recovering_market = False
         self._rate = TokenBucket()
         self._logger = logging.getLogger("finfusion.broker")
 
@@ -146,15 +149,25 @@ class InstitutionalWebullGateway:
             api.set_token_dir(str(self.config.token_dir.resolve()))
 
         def connected(*_args: Any) -> None:
+            if gateway.streaming_client is not client:
+                return
             gateway.market_healthy = True
-            if gateway._loop and gateway._subscribed:
+            if gateway._loop and gateway._subscribed and not gateway._recovering_market:
                 asyncio.run_coroutine_threadsafe(gateway._subscribe_many(tuple(gateway._subscribed)), gateway._loop)
 
         def disconnected(*_args: Any) -> None:
+            if gateway.streaming_client is not client:
+                return
             gateway.market_healthy = False
 
         def message(_client: Any, _topic: Any, payload: Any) -> None:
             gateway._receive_market(payload)
+            converted = protobuf_to_dict(payload)
+            for observer in tuple(gateway.market_observers):
+                try:
+                    observer(converted)
+                except Exception:
+                    gateway._logger.error("行情界面观察器失败")
 
         client.on_connect_success = connected
         client.on_disconnect = disconnected
@@ -183,10 +196,47 @@ class InstitutionalWebullGateway:
             if first and self.market_healthy:
                 await self._subscribe_many((symbol,))
 
+    async def release_symbol(self, reference_id: str) -> None:
+        async with self._subscription_lock:
+            previous = self._reference_symbols.pop(reference_id, None)
+            if not previous:
+                return
+            self._symbol_references[previous] -= 1
+            if self._symbol_references[previous] <= 0:
+                del self._symbol_references[previous]
+                self._subscribed.discard(previous)
+                if self.market_healthy and self.streaming_client is not None:
+                    await self._call(self.streaming_client.unsubscribe, [previous], self.CATEGORY, self.SUB_TYPES, False)
+
     async def _subscribe_many(self, symbols: tuple[str, ...]) -> None:
         if not symbols or self.streaming_client is None:
             return
-        await self._call(self.streaming_client.subscribe, list(symbols), self.CATEGORY, self.SUB_TYPES, 1, False)
+        try:
+            await self._call(self.streaming_client.subscribe, list(symbols), self.CATEGORY, self.SUB_TYPES, 1, False)
+        except Exception as exc:
+            if getattr(exc, 'http_status', None) != 417 or getattr(exc, 'error_code', None) != 'INVALID_SESSION':
+                raise
+            # Recreate only the market connection once. Never retry an order.
+            async with self._market_recovery_lock:
+                self.market_healthy = False
+                self._recovering_market = True
+                old = self.streaming_client
+                self.streaming_client = None
+                try:
+                    await self._call(old.disconnect)
+                    await self._call(old.loop_stop)
+                    await self._start_market()
+                    deadline = time.monotonic() + 8
+                    while not self.market_healthy and time.monotonic() < deadline:
+                        await asyncio.sleep(0.1)
+                    if not self.market_healthy:
+                        raise RuntimeError('Market reconnect did not become ready')
+                    await self._call(self.streaming_client.subscribe, list(self._subscribed or symbols), self.CATEGORY, self.SUB_TYPES, 1, False)
+                except Exception:
+                    self.market_healthy = False
+                    raise
+                finally:
+                    self._recovering_market = False
 
     def _receive_market(self, payload: Any) -> None:
         converted = protobuf_to_dict(payload)

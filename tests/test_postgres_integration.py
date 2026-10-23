@@ -24,8 +24,8 @@ async def test_real_postgres_migration_clients_idempotency_and_restart():
     store=await PostgresStore.connect(dsn,cipher)
     try:
         await store.migrate()
-        await store.bind_environment("SANDBOX")
-        with pytest.raises(RuntimeError): await store.bind_environment("LIVE")
+        await store.bind_environment("LIVE")
+        with pytest.raises(RuntimeError): await store.bind_environment("SANDBOX")
         uid="test-"+uuid.uuid4().hex
         await store.upsert_user(uid,uid,"test")
         cid,_=await store.register_client(uid,"test","unused-public-key")

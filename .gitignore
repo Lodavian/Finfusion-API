@@ -56,3 +56,16 @@ release/artifacts/
 *.pdb
 *.whl
 *.nupkg
+
+# Source-only consolidated delivery.
+*.dpapi
+*.zip
+*.deb
+*.iso
+*.pid
+settings.json
+instance.lock
+windows-client/packaging/tools/
+windows-client/packaging/vendor/*
+!windows-client/packaging/vendor/SOURCE.json
+windows-client/tools/live_db_acceptance/

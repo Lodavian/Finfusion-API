@@ -1,0 +1,11 @@
+[Unit]
+Description=Finfusion 1.0 daily verified backup
+
+[Timer]
+OnCalendar=*-*-* 02:00:00 Asia/Shanghai
+Persistent=true
+RandomizedDelaySec=60
+Unit=finfusion-backup-1.0.service
+
+[Install]
+WantedBy=timers.target

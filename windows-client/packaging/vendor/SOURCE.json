@@ -1,0 +1,17 @@
+{
+  "innoVersion": "7.1.0-x64",
+  "innoSource": "https://github.com/jrsoftware/issrc/releases/download/is-7_1_0/innosetup-7.1.0-x64.exe",
+  "runtimeSource": "https://go.microsoft.com/fwlink/?linkid=2124701",
+  "signaturesVerified": "Pyrsys B.V. / Microsoft Corporation: Valid",
+  "purpose": "Development compiler + full offline runtime, unsigned internal candidate only",
+  "files": {
+    "innosetup-7.1.0-x64.exe": {
+      "sha256": "0362a383ed217d4c4239b5933866dd96d3eb2102737da92f80f6057a4b40df2f",
+      "size": 14304168
+    },
+    "MicrosoftEdgeWebView2RuntimeInstallerX64.exe": {
+      "sha256": "ac22ecdc19c5b88b87f3fa752c00da9541653a8f5c0c5fc4a3b2b6ebe6591f69",
+      "size": 212358352
+    }
+  }
+}

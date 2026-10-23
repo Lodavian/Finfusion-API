@@ -1,0 +1,13 @@
+[Unit]
+Description=Finfusion 1.0 local operational health
+After=finfusion.service
+
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/opt/finfusion/venv/bin/python -I -B /opt/finfusion-ops/health.py
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/finfusion/ops
